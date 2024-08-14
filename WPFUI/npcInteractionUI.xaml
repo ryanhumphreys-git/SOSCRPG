@@ -1,0 +1,43 @@
+﻿<Window x:Class="WPFUI.npcInteractionUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFUI"
+        mc:Ignorable="d"
+        FontSize="11"
+        Title="npcInteractionUI" Height="450" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="NPC"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="Speech"/>
+
+        <Grid Grid.Row="1" Grid.Column="0" Background="LightSalmon">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Background="LightSalmon">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" Grid.Column="0" Content="Accept" Margin="15"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="Decline" Margin="15"/>
+        </Grid>
+
+    </Grid>
+</Window>
