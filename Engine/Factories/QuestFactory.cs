@@ -16,12 +16,12 @@ namespace Engine.Factories
             List<ItemQuantity> itemsToComplete = new List<ItemQuantity>();
             List<ItemQuantity> rewardItems = new List<ItemQuantity>();
 
-            itemsToComplete.Add(new ItemQuantity(9001, 5));
+            itemsToComplete.Add(new ItemQuantity(9003, 5));
             rewardItems.Add(new ItemQuantity(1002, 1));
 
             _quests.Add(new Quest(1,
                                   "Clear the Alchemist's garden",
-                                  "Defeat the snakes in the Alchemist's garden",
+                                  "Defeat the rats in the Alchemist's garden. Bring back 5 rat tails as proof of your deed.",
                                   itemsToComplete,
                                   25, 10,
                                   rewardItems));

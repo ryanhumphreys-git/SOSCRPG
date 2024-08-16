@@ -3,23 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFUI"
+        xmlns:local="clr-namespace:WPFUI" xmlns:viewmodels="clr-namespace:Engine.ViewModels;assembly=Engine"
+        d:DataContext="{d:DesignInstance viewmodels:GameSession}"
         mc:Ignorable="d"
-        FontSize="11"
+        FontSize="12"
+        WindowStartupLocation="CenterOwner"
         Title="npcInteractionUI" Height="450" Width="600">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="350"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="NPC"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="NPC" Background="MintCream"/>
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Gainsboro" BorderThickness="1"/>
+
         <Label Grid.Row="0" Grid.Column="1" Content="Speech"/>
+        <Border Grid.Row="0" Grid.Column="1"
+        Grid.RowSpan="2"
+        BorderBrush="Gainsboro"
+        BorderThickness="1">
+
+            <RichTextBox x:Name="InteractionMessages"
+                 Background="MintCream"
+                 VerticalScrollBarVisibility="Auto">
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+        </Border>
 
         <Grid Grid.Row="1" Grid.Column="0" Background="LightSalmon">
             <Grid.RowDefinitions>
@@ -27,6 +49,14 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
+
+
+            <Button Grid.Row="0" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[0].Name }"
+                    Click="OnClick_ChooseQuestOne">
+            </Button>
+            <Button Grid.Row="1" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[1].Name }"
+                    Visibility="{Binding HasTwoQuests, Converter={StaticResource BooleanToVisibility}}"
+                    Click="OnClick_ChooseQuestTwo"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" Background="LightSalmon">
@@ -35,8 +65,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="1" Grid.Column="0" Content="Accept" Margin="15"/>
-            <Button Grid.Row="1" Grid.Column="1" Content="Decline" Margin="15"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="1" Height="20" Width="50" Content="Accept" Margin="5" Click="OnClick_AcceptQuest"/>
+            <Button Grid.Column="1" Grid.Row="1" Height="20" Width="50" Content="Close" Margin="5" Click="OnClick_Cancel"/>
         </Grid>
 
     </Grid>

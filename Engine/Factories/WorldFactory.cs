@@ -14,23 +14,28 @@ namespace Engine.Factories
         {
             World newWorld = new World();
 
-            newWorld.AddLocation(0, -1, "Home", "This is your home");//, "/Engine;component/Images/Locations/Home.png");
+            newWorld.AddLocation(0, -1, "Home", "This is your home");//, "Home.png");
             newWorld.AddLocation(0, 0, "Town square", "You see a fountain.");
+            newWorld.LocationAt(0, 0).VendorHere = VendorFactory.GetVendorByName("Suspicious Trader");
 
             newWorld.AddLocation(0, 1, "Alchemist's hut", "There are many strange plants on the shelves.");
-            newWorld.LocationAt(0, 1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
+            newWorld.LocationAt(0, 1).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Alchemist");            
+            
 
             newWorld.AddLocation(0, 2, "Alchemist's garden", "Many plants are growing here.");
             newWorld.LocationAt(0, 2).AddMonster(2, 75);
             newWorld.LocationAt(0, 2).AddMonster(4, 25);
 
             newWorld.AddLocation(-1, 0, "Farmhouse", "There is a small farmhouse, with a farmer in front.");
+            newWorld.LocationAt(-1, 0).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Farmer");
 
             newWorld.AddLocation(-2, 0, "Farmer's field", "You see rows of vegetables growing here.");
             newWorld.LocationAt(-2, 0).AddMonster(1, 75);
             newWorld.LocationAt(-2, 0).AddMonster(5, 25);
 
             newWorld.AddLocation(1, 0, "Guard post", "There is a large, tough-looking guard here.");
+            newWorld.LocationAt(1, 0).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Guard");
+
             newWorld.AddLocation(2, 0, "Bridge", "A stone bridge crosses a wide river");
             newWorld.AddLocation(3, 0, "Forest", "You see spider webs covering the trees in this forest.");
             newWorld.LocationAt(3, 0).AddMonster(3, 100);
@@ -42,7 +47,10 @@ namespace Engine.Factories
                 "You are at peace for the moment.");
             newWorld.AddLocation(0, -3, "Forest Clearing", "You see animals scurry away.");
             newWorld.AddLocation(0, -4, "Dryad Shack", "You see a small abode made out of living trees. A dryad sits calmly inside.");
-            newWorld.AddLocation(-1, -4, "Abandoned Campground", "You see empty tents and a fire with a small pot over it");   
+            newWorld.LocationAt(0, -4).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Dryad");
+
+            newWorld.AddLocation(-1, -4, "Abandoned Campground", "You see empty tents and a fire with a small pot over it");
+
             newWorld.AddLocation(0, -5, "Corrupted Forest", "You see mangey animals wandering around. Some stare at you " +
                 "with red eyes");
             newWorld.LocationAt(0, -5).AddMonster(8, 33);
@@ -63,8 +71,12 @@ namespace Engine.Factories
                 "as the eye can see");
             newWorld.AddLocation(3, -2, "Perch of the Bird God", "You see a large bird in a throne-like nest surrounded " +
                 "by other smaller birds. He offers you a quest to assist his flock.");
+            newWorld.LocationAt(3, -2).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Bird God");
+
             newWorld.AddLocation(4, -2, "Overlook", "You see a beautiful view over the side of the mountains. A river flowing gently " +
                 "and birds and animals roaming the land. It is serene.");
+            newWorld.LocationAt(4, -2).VendorHere = VendorFactory.GetVendorByName("Bird Hermit");
+            
             newWorld.AddLocation(3, -3, "Mountain Path", "A winding path on the mountain. " +
                 "You see a ravine at the end of the path.");
             newWorld.LocationAt(3, -3).AddMonster(12, 33);
