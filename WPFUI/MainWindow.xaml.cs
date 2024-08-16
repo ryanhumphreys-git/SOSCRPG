@@ -18,12 +18,10 @@ namespace WPFUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameSession _gameSession;
+        public readonly GameSession _gameSession = new GameSession();
         public MainWindow()
         {
             InitializeComponent();
-
-            _gameSession = new GameSession();
 
             _gameSession.OnMessageRaised += OnGameMessageRaised;
 
@@ -55,8 +53,16 @@ namespace WPFUI
         private void OnClick_Interact(object sender, RoutedEventArgs e)
         {
             npcInteractionUI interactionWindow = new npcInteractionUI();
-            interactionWindow.Show();
-            
+            interactionWindow.Owner = this;
+            interactionWindow.DataContext = _gameSession;
+            _gameSession.OnMessageRaised -= OnGameMessageRaised;
+            interactionWindow.Closed += InteractionWindow_Closed;
+            interactionWindow.ShowDialog();  
+        }
+
+        private void InteractionWindow_Closed(object? sender, EventArgs e)
+        {
+            _gameSession.OnMessageRaised += OnGameMessageRaised;
         }
 
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
@@ -64,5 +70,15 @@ namespace WPFUI
             GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
             GameMessages.ScrollToEnd();
         }
+
+        private void OnClick_DisplayVendorScreen(object sender, RoutedEventArgs e)
+        {
+            TradeScreen tradeScreen = new TradeScreen();
+            tradeScreen.Owner = this;
+            tradeScreen.DataContext = _gameSession;
+            tradeScreen.ShowDialog();
+
+        }
+        
     }
 }

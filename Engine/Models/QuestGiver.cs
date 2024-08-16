@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class NonPlayerCharacter
+    public class QuestGiver : BaseNotificationClass
     {
+
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string ImageName { get; set; }
         public List<Quest> QuestAvailableHere { get; set; } = new List<Quest>();
 
-        public NonPlayerCharacter(string name, string description)
+        public QuestGiver(string name)
         {
             Name = name;
-            Description = description;
+        }
+
+        public void AddQuest(Quest quest)
+        {
+            QuestAvailableHere.Add(quest);
         }
     }
 }
