@@ -52,8 +52,8 @@
 
 
             <Button Grid.Row="0" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[0].Name }"
-                    Click="OnClick_ChooseQuestOne">
-            </Button>
+                    Click="OnClick_ChooseQuestOne"/>
+
             <Button Grid.Row="1" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[1].Name }"
                     Visibility="{Binding HasTwoQuests, Converter={StaticResource BooleanToVisibility}}"
                     Click="OnClick_ChooseQuestTwo"/>
@@ -71,8 +71,13 @@
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="1" Height="20" Width="50" Content="Accept" Margin="5" Click="OnClick_AcceptQuest"/>
-            <Button Grid.Column="1" Grid.Row="1" Height="20" Width="50" Content="Close" Margin="5" Click="OnClick_Cancel"/>
+            <Button x:Name="btnAccept" Grid.Column="0" Grid.Row="1" Height="20" Width="65" 
+                    Content="Accept" Margin="5" Click="OnClick_AcceptQuest"/>
+
+            <Button x:Name="btnComplete" Grid.Column="0" Grid.Row="1" Height="20" Width="65"
+                    Content="Complete" Margin="5" Click="OnClick_CompleteQuest"/>
+
+            <Button Grid.Column="1" Grid.Row="1" Height="20" Width="65" Content="Close" Margin="5" Click="OnClick_Cancel"/>
         </Grid>
 
     </Grid>

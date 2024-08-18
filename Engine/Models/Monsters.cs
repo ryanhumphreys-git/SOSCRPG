@@ -9,23 +9,23 @@ namespace Engine.Models
 {
     public class Monster : LivingEntity
     {
-        public string ImageName {  get; set; }
-        public int MinimumDamage { get; set; }
-        public int MaximumDamage { get; set; }   
+        public string ImageName {  get; }
+        public int MinimumDamage { get; }
+        public int MaximumDamage { get; }   
 
-        public int RewardExperiencePoints { get; private set; }
+        public int RewardExperiencePoints { get; }
 
         //string imageName,
-        public Monster(string name, int maxHitPoints, int hitPoints, int mimimunDamage, int maximumDamage, int rewardExperience, int rewardGold)
-        {
-            Name = name;
+        public Monster(string name,
+                       int maximumHitPoints, int currentHitPoints,
+                       int mimimunDamage, int maximumDamage, 
+                       int rewardExperience, int gold) :
+            base(name, maximumHitPoints, currentHitPoints, gold)
+        { 
             //ImageName = $"/Engine;component/Images/Monsters/{imageName}");
-            MaximumHitPoints = maxHitPoints;
-            CurrentHitPoints = hitPoints;
             MinimumDamage = mimimunDamage;
             MaximumDamage = maximumDamage;
             RewardExperiencePoints = rewardExperience;
-            Gold = rewardGold;
         }
     }
 }

@@ -10,9 +10,8 @@ namespace Engine.Models
     public class Vendor : LivingEntity
     {
      
-        public Vendor(string name)
+        public Vendor(string name) : base(name, 9999, 9999, 9999)
         {
-            Name = name;;
         }
     }
 }
