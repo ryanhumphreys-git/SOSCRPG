@@ -20,13 +20,13 @@ namespace Engine.Models
         public Vendor VendorHere { get; set; }
         public QuestGiver QuestGiverHere { get; set; }
 
-        public Location(int xCoordinate, int yCoordinate, string name, string description)//, string imageName)
+        public Location(int xCoordinate, int yCoordinate, string name, string description, string imageName)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
             Name = name;
             Description = description;
-            //ImageName = imageName;
+            ImageName = imageName;
         }
 
         public void AddMonster(int monsterID, int chanceOfEncountering)

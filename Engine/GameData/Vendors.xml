@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Vendors>
+	<Vendor ID="1">
+		<Name><![CDATA[Shady Trader]]></Name>
+		<InventoryItems>
+			<Item ID="1001" Quantity="1"/>
+		</InventoryItems>
+	</Vendor>
+
+	<Vendor ID="2">
+		<Name><![CDATA[Bird Hermit]]></Name>
+		<InventoryItems>
+			<Item ID="1004" Quantity="1"/>
+		</InventoryItems>
+	</Vendor>
+</Vendors>

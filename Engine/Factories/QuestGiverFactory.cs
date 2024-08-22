@@ -3,49 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Engine.Models;
+using Engine.Shared;
 
 namespace Engine.Factories
 {
     public static class QuestGiverFactory
     {
+        private const string GAME_DATA_FILENAME = ".\\GameData\\QuestGivers.xml";
         private static readonly List<QuestGiver> _questGivers = new List<QuestGiver>();
-
-
         static QuestGiverFactory()
         {
-            QuestGiver alchemist = new QuestGiver("Alchemist");
-            alchemist.AddQuest(QuestFactory.GetQuestByID(1));
-
-            QuestGiver farmer = new QuestGiver("Farmer");
-
-            QuestGiver guardAtPost = new QuestGiver("Guard");
-
-            QuestGiver dryad = new QuestGiver("Dryad");
-
-            QuestGiver birdGod = new QuestGiver("Bird God");
-
-            AddQuestGiver(alchemist);
-            AddQuestGiver(farmer);
-            AddQuestGiver(guardAtPost);
-            AddQuestGiver(dryad);
-            AddQuestGiver(birdGod);
-        }
-
-        public static QuestGiver GetQuestGiverByName(string name)
-        {
-            return _questGivers.FirstOrDefault(qg => qg.Name == name);
-        }
-
-        private static void AddQuestGiver(QuestGiver questGiver)
-        {
-            if (_questGivers.Any(qg => qg.Name == questGiver.Name))
+            if(File.Exists(GAME_DATA_FILENAME))
             {
-                throw new ArgumentException($"There is already a vendor named {questGiver.Name}");
+                XmlDocument data = new XmlDocument();
+                data.LoadXml(File.ReadAllText(GAME_DATA_FILENAME));
+                LoadQuestGiversFromNodes(data.SelectNodes("/QuestGivers/QuestGiver"));
             }
-
-            _questGivers.Add(questGiver);
+        }
+        private static void LoadQuestGiversFromNodes(XmlNodeList nodes)
+        {
+            foreach (XmlNode node in nodes)
+            {
+                QuestGiver questGiver =
+                    new QuestGiver(node.AttributeAsInt("ID"),
+                                   node.SelectSingleNode("./Name")?.InnerText ?? "");
+                AddQuests(questGiver, node.SelectNodes("./Quests"));
+                //foreach (XmlNode childNode in node.SelectNodes("./QuestGiver/Quests"))
+                //{
+                //    questGiver.AddQuest(QuestFactory.GetQuestByID(childNode.AttributeAsInt("ID")));
+                //}
+                _questGivers.Add(questGiver);
+            }
+        }
+        private static void AddQuests(QuestGiver questGiver, XmlNodeList quest)
+        {
+            if (quest == null) { return; }
+            foreach(XmlNode node in quest)
+            {
+                questGiver.QuestAvailableHere.
+                    Add(QuestFactory.GetQuestByID(node.AttributeAsInt("ID")));
+            }
         }
 
+        public static QuestGiver GetQuestGiverByID(int id)
+        {
+            return _questGivers.FirstOrDefault(qg => qg.ID == id);
+        }
     }
 }

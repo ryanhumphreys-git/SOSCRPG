@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Locations RootImagePath="/Images/Locations/">
+	<Location X="0" Y="-1" Name="Home" ImageName="home.png">
+		<Description>
+			<![CDATA[This is your home.]]>
+		</Description>
+	</Location>
+	<Location X="0" Y="0" Name="Town Square" ImageName="townSquare.png">
+		<Description>
+			<![CDATA[You see a fountain.]]>
+		</Description>
+		<Vendor ID="1"/>
+	</Location>
+	<Location X="0" Y="1" Name="Alchemist's Hut" ImageName="alchemistHut.png">
+		<Description>
+			<![CDATA[There are many strange plants on the shelves.]]>
+		</Description>
+		<QuestGiver ID="1"/>
+	</Location>
+	<Location X="0" Y="2" Name="Alchemist's Garden" ImageName="alchemistGarden.png">
+		<Description>
+			<![CDATA[Many plants are growing here.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="2" Percent="80"/>
+			<Monster ID="4" Percent="20"/>
+		</Monsters>
+	</Location>
+	<Location X="-1" Y="0" Name="Farmhouse" ImageName="farmhouse.png">
+		<Description>
+			<![CDATA[There is a small farmhouse, with a farmer in front.]]>
+		</Description>
+		<QuestGiver ID="2"/>
+	</Location>
+	<Location X="-2" Y="0" Name="Farmer's Field" ImageName="farmersField.png">
+		<Description>
+			<![CDATA[You see rows of vegetables growing here.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="1" Percent="75"/>
+			<Monster ID="5" Percent="25"/>
+		</Monsters>
+	</Location>
+	<Location X="1" Y="0" Name="Guard Post" ImageName="guardPost.png">
+		<Description>
+			<![CDATA[There is a large, tough-looking guard here.]]>
+		</Description>
+		<QuestGiver ID="3"/>
+	</Location>
+	<Location X="2" Y="0" Name="Bridge" ImageName="bridge.png">
+		<Description>
+			<![CDATA[A stone bridge crosses a wide river]]>
+		</Description>
+	</Location>
+	<Location X="3" Y="0" Name="Forest" ImageName="spiderForest.png">
+		<Description>
+			<![CDATA[You see spider webs covering the trees in this forest.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="3" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="4" Y="0" Name="Lair of the Spider Queen" ImageName="spiderQueenLair.png">
+		<Description>
+			<![CDATA[You see webs covering the room and skeletons riddled across the floor.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="13" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="0" Y="-2" Name="Winding Path" ImageName="windingPath.png">
+		<Description>
+			<![CDATA[A calm winding path through the forest.]]>
+		</Description>
+	</Location>
+	<Location X="0" Y="-3" Name="Forest Clearing" ImageName="forestClearing.png">
+		<Description>
+			<![CDATA[You see animals scurry away]]>
+		</Description>
+	</Location>
+	<Location X="0" Y="-4" Name="Dryad Shack" ImageName="dryadShack.png">
+		<Description>
+			<![CDATA[You see a small abode made out of living trees. A dryad sits calmly inside.]]>
+		</Description>
+		<QuestGiver ID="4"/>
+	</Location>
+	<Location X="-1" Y="-4" Name="Abandoned Campground" ImageName="abandonedCampground.png">
+		<Description>
+			<![CDATA[You see empty tents and a fire with a small pot over it]]>
+		</Description>
+	</Location>
+	<Location X="0" Y="-5" Name="Corrupted Forest" ImageName="corruptedForest.png">
+		<Description>
+			<![CDATA[You see mangey animals wandering around. Some stare at you.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="8" Percent="33"/>
+			<Monster ID="9" Percent="33"/>
+			<Monster ID="10" Percent="33"/>
+		</Monsters>
+	</Location>
+	<Location X="1" Y="-4" Name="Elemental Clearing" ImageName="elementalClearing.png">
+		<Description>
+			<![CDATA[You see living beings made of rock and water. The air tingles with elemental energy.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="6" Percent="50"/>
+			<Monster ID="7" Percent="50"/>
+		</Monsters>
+	</Location>
+	<Location X="1" Y="-2" Name="Mountain Path" ImageName="mountainPath.png">
+		<Description>
+			<![CDATA[A winding path on the mountain. You feel hints of corruption around you. As you approach the summit the air becomes thick and unbearable.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="11" Percent="33"/>
+		</Monsters>
+	</Location>
+	<Location X="2" Y="-2" Name="Mountain Peak" ImageName="mountainPeak.png">
+		<Description>
+			<![CDATA[You see clouds underneath you all the way to the horizon.]]>
+		</Description>
+	</Location>
+	<Location X="3" Y="-2" Name="Perch of the Bird God" ImageName="birdGodPerch.png">
+		<Description>
+			<![CDATA[You see a large bird in a throne-like nest surrounded by other smaller birds. He offers you a quest to assist his flock.]]>
+		</Description>
+		<QuestGiver ID="5"/>
+	</Location>
+	<Location X="4" Y="-2" Name="Overlook" ImageName="overlook.png">
+		<Description>
+			<![CDATA[You see a beautiful view over the side of the mountains. A river flows gently and bird and animals are roaming the land. It is serene.]]>
+		</Description>
+		<Vendor ID="2"/>
+	</Location>
+	<Location X="3" Y="-3" Name="Mountain Path" ImageName="mountainPathWolf.png">
+		<Description>
+			<![CDATA[A winding path on the mountain. You see a ravine at the end of the path.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="12" Percent="33"/>
+		</Monsters>
+	</Location>
+	<Location X="3" Y="-4" Name="Den of the Alpha" ImageName="alphaDen.png">
+		<Description>
+			<![CDATA[The den is dark and has no way to escape. You see two glowing red eyes staring at you from the darkness. Is this the end?]]>
+		</Description>
+		<Monsters>
+			<Monster ID="14" Percent="100"/>
+		</Monsters>
+	</Location>
+</Locations>

@@ -35,6 +35,7 @@ namespace Engine.Models
         
 
         public ObservableCollection<QuestStatus> Quests { get; }
+        public ObservableCollection<Recipe>  Recipes { get; }
         public event EventHandler OnLeveledUp;
 
         public Player(string name, string characterClass, int experiencePoints,
@@ -45,24 +46,20 @@ namespace Engine.Models
             ExperiencePoints = experiencePoints;
 
             Quests = new ObservableCollection<QuestStatus>();
-        }
-
-        public bool HasAllTheseItems(List<ItemQuantity> items)
-        {
-            foreach(ItemQuantity item in items)
-            {
-                if (Inventory.Count(i => i.ItemTypeID == item.ItemID) < item.Quantity)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            Recipes = new ObservableCollection<Recipe>();
         }
 
         public void AddExperience(int experiencePoints)
         {
             ExperiencePoints += experiencePoints;
+        }
+
+        public void LearnRecipe(Recipe recipe)
+        {
+            if(!Recipes.Any(r => r.ID == recipe.ID))
+            {
+                Recipes.Add(recipe);
+            }
         }
 
         private void SetLevelAndMaximumHitpoints()
