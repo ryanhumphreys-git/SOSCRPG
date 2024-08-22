@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.Factories;
 
 namespace Engine.Models
 {
@@ -10,6 +11,9 @@ namespace Engine.Models
     {
         public int ItemID { get; }
         public int Quantity { get; }
+
+        public string QuantityItemDescription =>
+            $"{Quantity} {ItemFactory.ItemName(ItemID)}";
 
         public ItemQuantity(int itemID, int quantity)
         {

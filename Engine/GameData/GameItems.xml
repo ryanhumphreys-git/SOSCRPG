@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GameItems>
+	<Weapons>
+		<!-- Player Available Weapons -->
+		<Weapon ID="1001" Name="Pointy Stick" Price="1" MinimumDamage="1"  MaximumDamage="2"/>
+		<Weapon ID="1002" Name="Rusty Sword" Price="5" MinimumDamage="2"  MaximumDamage="4"/>
+		<Weapon ID="1003" Name="Club" Price="10" MinimumDamage="3"  MaximumDamage="6"/>
+		<Weapon ID="1004" Name="Bird Talon Dagger" Price="20" MinimumDamage="6"  MaximumDamage="10"/>
+		<Weapon ID="1005" Name="Sword of The Spider Queen" Price="30" MinimumDamage="12"  MaximumDamage="20"/>
+		<Weapon ID="1006" Name="Claw of The First Wolf" Price="50" MinimumDamage="25"  MaximumDamage="50"/>
+
+		<!-- Monster Weapons -->
+		<Weapon ID="1501" Name="Rat claws" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
+		<Weapon ID="1502" Name="Snake fangs" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
+		<Weapon ID="1503" Name="Giant rat claws" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
+		<Weapon ID="1504" Name="Giant snake fangs" Price="0" MinimumDamage="0"  MaximumDamage="5"/>
+		<Weapon ID="1505" Name="Giant spider fangs" Price="0" MinimumDamage="3"  MaximumDamage="7"/>
+		<Weapon ID="1506" Name="Earth Blast" Price="0" MinimumDamage="8"  MaximumDamage="12"/>
+		<Weapon ID="1507" Name="Water Blast" Price="0" MinimumDamage="8"  MaximumDamage="12"/>
+		<Weapon ID="1508" Name="Corrupted Claw" Price="0" MinimumDamage="8"  MaximumDamage="12"/>
+		<Weapon ID="1509" Name="Corrupted HeadButt" Price="0" MinimumDamage="8"  MaximumDamage="12"/>
+		<Weapon ID="1510" Name="Guarding Claw" Price="0" MinimumDamage="13"  MaximumDamage="20"/>
+		<Weapon ID="1511" Name="Giga Spider Claw" Price="0" MinimumDamage="15"  MaximumDamage="25"/>
+		<Weapon ID="1512" Name="Godlike Gaslight Alpha Attack" Price="0" MinimumDamage="25"  MaximumDamage="40"/>
+	</Weapons>
+	<HealingItems>
+		<HealingItem ID="2001" Name="Granola Bar" Price="5" HitPointsToHeal="5" />
+	</HealingItems>
+	<MiscellaneousItems>
+		<!-- Recipe Items -->
+		<MiscellaneousItem ID="3001" Name="Oats" Price="1"/>
+		
+		<!-- Other Items -->
+		<MiscellaneousItem ID="9001" Name="Snake fang" Price="1"/>
+		<MiscellaneousItem ID="9002" Name="Snake skin" Price="2"/>
+		<MiscellaneousItem ID="9003" Name="Rat tail" Price="1"/>
+		<MiscellaneousItem ID="9004" Name="Piece of fur" Price="1"/>
+		<MiscellaneousItem ID="9005" Name="Spider fang" Price="1"/>
+		<MiscellaneousItem ID="9006" Name="Spider silk" Price="1"/>
+		<MiscellaneousItem ID="9007" Name="Adventurer pass" Price="5"/>
+		<MiscellaneousItem ID="9008" Name="Fang of the Alpha Wolf" Price="5"/>
+		<MiscellaneousItem ID="9009" Name="Fang of the Spider Queen" Price="5"/>
+		<MiscellaneousItem ID="9010" Name="Elemental dust" Price="3"/>
+		<MiscellaneousItem ID="9011" Name="Corrupted fur" Price="3"/>
+		<MiscellaneousItem ID="9012" Name="Corrupted Meat" Price="3"/>
+		<MiscellaneousItem ID="9013" Name="Leftover rock" Price="3"/>
+		<MiscellaneousItem ID="9014" Name="Leftover water" Price="3"/>
+		<MiscellaneousItem ID="9015" Name="Dryad's blessing" Price="5"/>
+		<MiscellaneousItem ID="9016" Name="Feather" Price="5"/>
+	</MiscellaneousItems>
+</GameItems>

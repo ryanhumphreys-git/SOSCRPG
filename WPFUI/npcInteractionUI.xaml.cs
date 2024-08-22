@@ -78,7 +78,7 @@ namespace WPFUI
                 if (Session.SelectedQuest.RewardItems != null)
                 {
                     Session.RaiseMessage($"You will also receive " +
-                        $"{ItemFactory.GetGameItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
+                        $"{ItemFactory.ItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
                 }
             }
             else
@@ -124,7 +124,7 @@ namespace WPFUI
                 if (Session.SelectedQuest.RewardItems != null)
                 {
                     Session.RaiseMessage($"You will also receive " +
-                        $"{ItemFactory.GetGameItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
+                        $"{ItemFactory.ItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
                 }
             }
             else 

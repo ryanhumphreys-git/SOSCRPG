@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Quests>
+	<Quest ID="1" RewardExperiencePoints="25" RewardGold="10">
+		<Name><![CDATA[Clear the garden]]></Name>
+		<Description><![CDATA[Defeat the snakes in the Alchemist's garden.]]></Description>
+		<ItemsToComplete>
+			<Item ID="9003" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="1002" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="2" RewardExperiencePoints="30" RewardGold="15">
+		<Name><![CDATA[Clear the field]]></Name>
+		<Description><![CDATA[Kill snakes in the Farmer's field.]]></Description>
+		<ItemsToComplete>
+			<Item ID="9001" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="9007" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="3" RewardExperiencePoints="50" RewardGold="30">
+		<Name><![CDATA[Cleanse the corruption]]></Name>
+		<Description><![CDATA[Kill corrupted wildlife in the corrupted forest.]]></Description>
+		<ItemsToComplete>
+			<Item ID="9011" Quantity="10"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="9012" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="4" RewardExperiencePoints="30" RewardGold="15">
+		<Name><![CDATA[Eliminating Elementals]]></Name>
+		<Description><![CDATA[Clear the elemental clearing of the angry spirits who reside there.]]></Description>
+		<ItemsToComplete>
+			<Item ID="9010" Quantity="10"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="9013" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="5" RewardExperiencePoints="50" RewardGold="30">
+		<Name><![CDATA[Exterminate the Spider Queen. [DANGER]]]></Name>
+		<Description>
+			<![CDATA[The spider queen lives just past the spider field across the bridge. She is extremely dangerous and should be approached with caution. If you manage to defeat her we would be able to fashion her large fang into a weapon to aid you.]]></Description>
+		<ItemsToComplete>
+			<Item ID="9009" Quantity="1"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="1005" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="7" RewardExperiencePoints="150" RewardGold="200">
+		<Name><![CDATA[Removing the Threat [DANGER]]]></Name>
+		<Description>
+			<![CDATA[The alpha wolf is a threat to my flock. He preys on them when they land to feed and has caused massive damage to us. Please adventurer, defeat the alpha wolf and bring peace to our land. I will reward you with a weapon fashioned from his gigantic fang.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9009" Quantity="1"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="1006" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="8" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Handle the spider infestation.]]></Name>
+		<Description>
+			<![CDATA[Please! You must help us clear the spiders across the bridge, they are blocking access to many merchants and travelers to our town.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9005" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="1003" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+</Quests>

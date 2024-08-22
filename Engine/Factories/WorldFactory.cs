@@ -4,87 +4,80 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Engine.Models;
+using Engine.Shared;
 
 namespace Engine.Factories
 {
     internal static class WorldFactory
     {
+        private const string GAME_DATA_FILENAME = ".\\GameData\\Locations.xml";
         internal static World CreateWorld()
         {
-            World newWorld = new World();
+            World world = new World();
 
-            newWorld.AddLocation(0, -1, "Home", "This is your home");//, "Home.png");
-            newWorld.AddLocation(0, 0, "Town square", "You see a fountain.");
-            newWorld.LocationAt(0, 0).VendorHere = VendorFactory.GetVendorByName("Suspicious Trader");
+            if(File.Exists(GAME_DATA_FILENAME))
+            {
+                XmlDocument data = new XmlDocument();
+                data.LoadXml(File.ReadAllText(GAME_DATA_FILENAME));
 
-            newWorld.AddLocation(0, 1, "Alchemist's hut", "There are many strange plants on the shelves.");
-            newWorld.LocationAt(0, 1).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Alchemist");            
+                string rootImagePath =
+                    data.SelectSingleNode("/Locations").AttributeAsString("RootImagePath");
+
+                LoadLocationsFromNodes(world,
+                                       rootImagePath,
+                                       data.SelectNodes("/Locations/Location"));
+            }
+            else
+            {
+                throw new FileNotFoundException($"Missing data file: {GAME_DATA_FILENAME}");
+            }
+            return world;
+        }
+        private static void LoadLocationsFromNodes(World world, string rootImagePath, XmlNodeList nodes)
+        {
+            if(nodes == null)
+            {
+                return;
+            }
+            foreach(XmlNode node in nodes)
+            {
+                Location location =
+                    new Location(node.AttributeAsInt("X"),
+                                 node.AttributeAsInt("Y"),
+                                 node.AttributeAsString("Name"),
+                                 node.SelectSingleNode("./Description")?.InnerText ?? "",
+                                 $".{rootImagePath}{node.AttributeAsString("ImageName")}");
+                AddMonsters(location, node.SelectNodes("./Monsters/Monster"));
+                AddQuestGiver(location, node.SelectSingleNode("./QuestGiver"));
+                AddVendor(location, node.SelectSingleNode("./Vendor"));
+                world.AddLocation(location);
+            }
+        }
+        private static void AddMonsters(Location location, XmlNodeList monsters)
+        {
+            if (monsters == null) { return; }
+            foreach (XmlNode monsterNode in monsters)
+            {
+                location.AddMonster(monsterNode.AttributeAsInt("ID"),
+                                    monsterNode.AttributeAsInt("Percent"));
+            }
+        }
+        private static void AddQuestGiver(Location location, XmlNode questGiver)
+        {
+            if (questGiver == null) { return; }
+
+            location.QuestGiverHere =
+                QuestGiverFactory.GetQuestGiverByID(questGiver.AttributeAsInt("ID"));
             
+        }
+        private static void AddVendor(Location location, XmlNode trader)
+        {
+            if (trader == null) { return; }
 
-            newWorld.AddLocation(0, 2, "Alchemist's garden", "Many plants are growing here.");
-            newWorld.LocationAt(0, 2).AddMonster(2, 75);
-            newWorld.LocationAt(0, 2).AddMonster(4, 25);
-
-            newWorld.AddLocation(-1, 0, "Farmhouse", "There is a small farmhouse, with a farmer in front.");
-            newWorld.LocationAt(-1, 0).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Farmer");
-
-            newWorld.AddLocation(-2, 0, "Farmer's field", "You see rows of vegetables growing here.");
-            newWorld.LocationAt(-2, 0).AddMonster(1, 75);
-            newWorld.LocationAt(-2, 0).AddMonster(5, 25);
-
-            newWorld.AddLocation(1, 0, "Guard post", "There is a large, tough-looking guard here.");
-            newWorld.LocationAt(1, 0).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Guard");
-
-            newWorld.AddLocation(2, 0, "Bridge", "A stone bridge crosses a wide river");
-            newWorld.AddLocation(3, 0, "Forest", "You see spider webs covering the trees in this forest.");
-            newWorld.LocationAt(3, 0).AddMonster(3, 100);
-
-            newWorld.AddLocation(4, 0, "Lair of the Spider Queen", "You see webs covering all areas of the room and skeletons riddled across the floor.");
-            newWorld.LocationAt(4, 0).AddMonster(13, 100);
-            
-            newWorld.AddLocation(0, -2, "Winding Path", "A calm winding path through the forest. " +
-                "You are at peace for the moment.");
-            newWorld.AddLocation(0, -3, "Forest Clearing", "You see animals scurry away.");
-            newWorld.AddLocation(0, -4, "Dryad Shack", "You see a small abode made out of living trees. A dryad sits calmly inside.");
-            newWorld.LocationAt(0, -4).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Dryad");
-
-            newWorld.AddLocation(-1, -4, "Abandoned Campground", "You see empty tents and a fire with a small pot over it");
-
-            newWorld.AddLocation(0, -5, "Corrupted Forest", "You see mangey animals wandering around. Some stare at you " +
-                "with red eyes");
-            newWorld.LocationAt(0, -5).AddMonster(8, 33);
-            newWorld.LocationAt(0, -5).AddMonster(9, 33);
-            newWorld.LocationAt(0, -5).AddMonster(10, 33);
-
-            newWorld.AddLocation(1, -4, "Elemental Clearing", "You see living beings made of rock and water. The air" +
-                " tingles with elemental energy");
-            newWorld.LocationAt(1, -4).AddMonster(6, 33);
-            newWorld.LocationAt(1, -4).AddMonster(7, 33);
-
-
-            newWorld.AddLocation(1, -2, "Mountain Path", "A winding path on the mountain. You feel hints" +
-                " of corruption around you. As you approach the summit the air becomes thick and unbearable.");
-            newWorld.LocationAt(1, -2).AddMonster(11, 33);
-
-            newWorld.AddLocation(2, -2, "Mountain Peak", "You are so high you see white clouds as far " +
-                "as the eye can see");
-            newWorld.AddLocation(3, -2, "Perch of the Bird God", "You see a large bird in a throne-like nest surrounded " +
-                "by other smaller birds. He offers you a quest to assist his flock.");
-            newWorld.LocationAt(3, -2).QuestGiverHere = QuestGiverFactory.GetQuestGiverByName("Bird God");
-
-            newWorld.AddLocation(4, -2, "Overlook", "You see a beautiful view over the side of the mountains. A river flowing gently " +
-                "and birds and animals roaming the land. It is serene.");
-            newWorld.LocationAt(4, -2).VendorHere = VendorFactory.GetVendorByName("Bird Hermit");
-            
-            newWorld.AddLocation(3, -3, "Mountain Path", "A winding path on the mountain. " +
-                "You see a ravine at the end of the path.");
-            newWorld.LocationAt(3, -3).AddMonster(12, 33);
-
-            newWorld.AddLocation(3, -4, "Den of The Alpha", "The den is dark and has no way to escape. You see " +
-                "two glowing red eyes staring at you from the darkness. Is this the end?");
-            newWorld.LocationAt(3, -4).AddMonster(14, 100);
-            return newWorld;
+            location.VendorHere =
+                VendorFactory.GetVendorByID(trader.AttributeAsInt("ID"));
         }
     }
 }

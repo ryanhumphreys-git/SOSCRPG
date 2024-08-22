@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<QuestGivers>
+	<QuestGiver ID="1" Name="Alchemist">
+		<Quests ID="1"/>
+	</QuestGiver>
+	<QuestGiver ID="2" Name="Farmer">
+		<Quests ID="2"/>
+	</QuestGiver>
+	<QuestGiver ID="3" Name="Guard">
+		<Quests ID="8"/>
+		<Quests ID="6"/>
+	</QuestGiver>
+	<QuestGiver ID="4" Name="Dryad">
+		<Quests ID="3"/>
+		<Quests ID="4"/>
+	</QuestGiver>
+	<QuestGiver ID="5" Name="Bird God">
+		<Quests ID="7"/>
+	</QuestGiver>		
+</QuestGivers>

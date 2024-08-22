@@ -9,12 +9,14 @@ namespace Engine.Models
     public class QuestGiver : BaseNotificationClass
     {
 
-        public string Name { get; set; }
-        public string ImageName { get; set; }
+        public string Name { get; }
+        public int ID { get; }
+        public string ImageName { get; }
         public List<Quest> QuestAvailableHere { get; set; } = new List<Quest>();
 
-        public QuestGiver(string name)
+        public QuestGiver(int id, string name)
         {
+            ID = id;
             Name = name;
         }
 
