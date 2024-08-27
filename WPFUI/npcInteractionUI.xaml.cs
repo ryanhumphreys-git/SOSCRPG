@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Engine.EventArgs;
 using Engine.Factories;
+using Engine.Services;
 using Engine.ViewModels;
 
 namespace WPFUI
 {
-    /// <summary>
-    /// Interaction logic for npcInteractionUI.xaml
-    /// </summary>
     public partial class npcInteractionUI : Window
     {
         public GameSession Session => DataContext as GameSession;
+        private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
         public npcInteractionUI()
         {
             InitializeComponent();
@@ -31,13 +30,48 @@ namespace WPFUI
             btnComplete.Visibility = Visibility.Hidden;
                        
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _messageBroker.OnMessageRaised += OnGameMessageRaised;
 
+            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].ID) != null)
+            {
+                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].ID).IsCompleted)
+                {
+                    btnQuestOne.Visibility = Visibility.Hidden;
+                }
+            }
+            if (Session.CurrentLocation.QuestGiverHere.QuestAvailableHere.Count > 1)
+            {
+                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1].ID) != null)
+                {
+                    if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1].ID).IsCompleted)
+                    {
+                        btnQuestOne.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+            if (Session.CurrentLocation.QuestGiverHere.QuestAvailableHere.Count > 1)
+            {
+                if (btnQuestOne.Visibility == Visibility.Hidden && btnQuestTwo.Visibility == Visibility.Hidden)
+                {
+                    Session.AllQuestsAtQuestGiverAreCompleted(Session.CurrentLocation.QuestGiverHere.Name);
+                }
+            }
+            else
+            {
+                if (btnQuestOne.Visibility == Visibility.Hidden)
+                {
+                    Session.AllQuestsAtQuestGiverAreCompleted(Session.CurrentLocation.QuestGiverHere.Name);
+                }
+            }
+               
+        }
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
         {
             InteractionMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
             InteractionMessages.ScrollToEnd();
         }
-
         private void OnClick_AcceptQuest(object sender, RoutedEventArgs e)
         {
             if(Session.SelectedQuest == null) return;
@@ -45,108 +79,59 @@ namespace WPFUI
             Session.SelectedQuest = null;
             btnAccept.Visibility = Visibility.Hidden;
         }
-
         private void OnClick_CompleteQuest(object sender, RoutedEventArgs e)
         {
-            if (!Session.CurrentPlayer.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete)) return;
+            if (!Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete)) return;
             Session.CompleteQuest(Session.SelectedQuest);
             Session.SelectedQuest = null;
             btnComplete.Visibility= Visibility.Hidden;
         }
-
         private void OnClick_Cancel(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void OnClick_ChooseQuestOne(object sender, RoutedEventArgs e)
         {
-            Session.OnMessageRaised += OnGameMessageRaised;
-
+            
             Session.SelectedQuest = Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0];
 
             Button button = sender as Button;
 
+            Session.SelectQuest(Session.SelectedQuest);
+
             if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) == null)
             {
                 btnAccept.Visibility = Visibility.Visible;
-                Session.RaiseMessage("");
-                Session.RaiseMessage($"Would you like to accept {Session.SelectedQuest.Name}?");
-                Session.RaiseMessage($"You must {Session.SelectedQuest.Description}");
-                Session.RaiseMessage($"And will be rewarded with {Session.SelectedQuest.RewardExperiencePoints} experience, ");
-                Session.RaiseMessage($"{Session.SelectedQuest.RewardGold} gold.");
-                if (Session.SelectedQuest.RewardItems != null)
-                {
-                    Session.RaiseMessage($"You will also receive " +
-                        $"{ItemFactory.ItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
-                }
             }
             else
             {
-                
-                Session.RaiseMessage("");
-                Session.RaiseMessage($"Would you like to complete {Session.SelectedQuest.Name}?");
-                Session.RaiseMessage($"You must {Session.SelectedQuest.Description}");
-
-                if (Session.CurrentPlayer.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
+                if (Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
                 {
                     btnComplete.Visibility = Visibility.Visible;
-                }
-            }
-
-            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) != null)
-            {
-                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID).IsCompleted)
-                {
-                    Session.RaiseMessage("You have already completed this quest");
                 }
             }
 
             button.Visibility = Visibility.Hidden;
         }
-
         private void OnClick_ChooseQuestTwo(object sender, RoutedEventArgs e)
         {
-            Session.OnMessageRaised += OnGameMessageRaised;
-
             Session.SelectedQuest = Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1];
 
             Button button = sender as Button;
 
+            Session.SelectQuest(Session.SelectedQuest);
+
             if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) == null)
             {
                 btnAccept.Visibility = Visibility.Visible;
-                Session.RaiseMessage("");
-                Session.RaiseMessage($"Would you like to accept {Session.SelectedQuest.Name}?");
-                Session.RaiseMessage($"You must {Session.SelectedQuest.Description}");
-                Session.RaiseMessage($"And will be rewarded with {Session.SelectedQuest.RewardExperiencePoints} experience, ");
-                Session.RaiseMessage($"{Session.SelectedQuest.RewardGold} gold.");
-                if (Session.SelectedQuest.RewardItems != null)
-                {
-                    Session.RaiseMessage($"You will also receive " +
-                        $"{ItemFactory.ItemName(Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].RewardItems[0].ItemID)}.");
-                }
             }
-            else 
+            else
             {
-                
-                Session.RaiseMessage("");
-                Session.RaiseMessage($"Would you like to complete {Session.SelectedQuest.Name}?");
-                Session.RaiseMessage($"You must {Session.SelectedQuest.Description}");
-
-                if (Session.CurrentPlayer.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
+                if (Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
                 {
                     btnComplete.Visibility = Visibility.Visible;
                 }
             }
-
-            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) != null)
-            {
-                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID).IsCompleted)
-                {
-                    Session.RaiseMessage("You have already completed this quest");
-                }
-            }            
 
             button.Visibility = Visibility.Hidden;
         }

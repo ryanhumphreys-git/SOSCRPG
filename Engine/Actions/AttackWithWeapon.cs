@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Models;
+using Engine.Services;
 
 
 namespace Engine.Actions
@@ -38,20 +39,21 @@ namespace Engine.Actions
 
         public void Execute(LivingEntity actor, LivingEntity target)
         {
-            int damage = RandomNumberGenerator.NumberBetween(_minimumDamage, _maximumDamage);
+            
 
             string actorName = (actor is Player) ? "You" : $"The {actor.Name}";
             string targetName = (target is Player) ? "you" : $"the {target.Name}";
 
-            if(damage==0)
+            if(BattleService.AttackSucceeded(actor, target))
             {
-                ReportResult($"{actorName} missed {target.Name}.");
-            }
-            else
-            {
+                int damage = RandomNumberGenerator.NumberBetween(_minimumDamage, _maximumDamage);
                 ReportResult($"{actorName} hit {target.Name} for {damage} damage{(damage > 1 ? "s" : "")}" +
                     $" with {actor.CurrentWeapon.Name}.");
                 target.TakeDamage(damage);
+            }
+            else
+            {
+                ReportResult($"{actorName} missed {target.Name}.");
             }
         }
     }

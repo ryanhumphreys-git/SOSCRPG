@@ -14,10 +14,11 @@ namespace Engine.Models
         public string ImageName { get; }
         public List<Quest> QuestAvailableHere { get; set; } = new List<Quest>();
 
-        public QuestGiver(int id, string name)
+        public QuestGiver(int id, string name, string imageName)
         {
             ID = id;
             Name = name;
+            ImageName = imageName;
         }
 
         public void AddQuest(Quest quest)

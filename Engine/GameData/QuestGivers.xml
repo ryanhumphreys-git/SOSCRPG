@@ -1,20 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<QuestGivers>
-	<QuestGiver ID="1" Name="Alchemist">
+<QuestGivers RootImagePath="/Images/NPC's/">
+	<QuestGiver ID="1" ImageName="alchemist.png">
+		<Name><![CDATA[Alchemist]]></Name>
 		<Quests ID="1"/>
 	</QuestGiver>
-	<QuestGiver ID="2" Name="Farmer">
+	<QuestGiver ID="2" ImageName="farmer.png">
+		<Name><![CDATA[Farmer]]></Name>
 		<Quests ID="2"/>
 	</QuestGiver>
-	<QuestGiver ID="3" Name="Guard">
+	<QuestGiver ID="3" ImageName="guard.png">
+		<Name><![CDATA[Guard]]></Name>
 		<Quests ID="8"/>
 		<Quests ID="6"/>
 	</QuestGiver>
-	<QuestGiver ID="4" Name="Dryad">
+	<QuestGiver ID="4" ImageName="dryad.png">
+		<Name><![CDATA[Dryad]]></Name>
 		<Quests ID="3"/>
 		<Quests ID="4"/>
 	</QuestGiver>
-	<QuestGiver ID="5" Name="Bird God">
+	<QuestGiver ID="5" ImageName="birdGod.png">
+		<Name><![CDATA[Bird God]]></Name>
 		<Quests ID="7"/>
 	</QuestGiver>		
 </QuestGivers>

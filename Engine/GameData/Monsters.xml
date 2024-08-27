@@ -1,24 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Monsters RootImagePath="/Images/Monsters/">
 	<Monster ID="1" Name="Snake" MaximumHitPoints="5" WeaponID="1502" RewardXP="5" Gold="1" ImageName="snake.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9001" Percentage="25"/>
 			<LootItem ID="9002" Percentage="75"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="2" Name="Rat" MaximumHitPoints="3" WeaponID="1501" RewardXP="3" Gold="1" ImageName="rat.png">
+		<Dexterity>8</Dexterity>
 		<LootItems>
 			<LootItem ID="9003" Percentage="25"/>
 			<LootItem ID="9004" Percentage="75"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="3" Name="Giant Spider" MaximumHitPoints="10" WeaponID="1505" RewardXP="10" Gold="3" ImageName="giantSpider.png">
+		<Dexterity>5</Dexterity>
 		<LootItems>
 			<LootItem ID="9005" Percentage="25"/>
 			<LootItem ID="9006" Percentage="75"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="4" Name="Giant Rat" MaximumHitPoints="6" WeaponID="1503" RewardXP="6" Gold="3" ImageName="giantRat.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9003" Percentage="25"/>
 			<LootItem ID="9004" Percentage="75"/>
@@ -26,6 +30,7 @@
 		</LootItems>
 	</Monster>
 	<Monster ID="5" Name="Giant Snake" MaximumHitPoints="10" WeaponID="1504" RewardXP="10" Gold="3" ImageName="giantSnake.png">
+		<Dexterity>13</Dexterity>
 		<LootItems>
 			<LootItem ID="9001" Percentage="25"/>
 			<LootItem ID="9002" Percentage="75"/>
@@ -33,52 +38,61 @@
 		</LootItems>
 	</Monster>
 	<Monster ID="6" Name="Angry Earth Elemental" MaximumHitPoints="30" WeaponID="1506" RewardXP="20" Gold="5" ImageName="earthElemental.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9010" Percentage="75"/>
 			<LootItem ID="9013" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="7" Name="Angry Water Elemental" MaximumHitPoints="30" WeaponID="1507" RewardXP="20" Gold="5" ImageName="waterElemental.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9010" Percentage="75"/>
 			<LootItem ID="9014" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="8" Name="Corrupted Wolf" MaximumHitPoints="30" WeaponID="1508" RewardXP="20" Gold="5" ImageName="corruptedWolf.png">
+		<Dexterity>18</Dexterity>
 		<LootItems>
 			<LootItem ID="9011" Percentage="75"/>
 			<LootItem ID="9012" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="9" Name="Corrupted Deer" MaximumHitPoints="30" WeaponID="1509" RewardXP="20" Gold="5" ImageName="corruptedDeer.png">
+		<Dexterity>12</Dexterity>
 		<LootItems>
 			<LootItem ID="9011" Percentage="75"/>
 			<LootItem ID="9012" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="10" Name="Corrupted Bear" MaximumHitPoints="30" WeaponID="1508" RewardXP="20" Gold="5" ImageName="corruptedBear.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9011" Percentage="75"/>
 			<LootItem ID="9012" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="11" Name="Corrupted Mother Bear" MaximumHitPoints="30" WeaponID="1508" RewardXP="20" Gold="5" ImageName="corruptedMotherBear.png">
+		<Dexterity>8</Dexterity>
 		<LootItems>
 			<LootItem ID="9011" Percentage="75"/>
 			<LootItem ID="9012" Percentage="25"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="12" Name="Guarding Wolf" MaximumHitPoints="75" WeaponID="1510" RewardXP="50" Gold="15" ImageName="guardingWolf.png">
+		<Dexterity>18</Dexterity>
 		<LootItems>
 			<LootItem ID="9016" Percentage="50"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="13" Name="Spider Queen" MaximumHitPoints="120" WeaponID="1511" RewardXP="150" Gold="30" ImageName="spiderQueen.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9009" Percentage="100"/>
 		</LootItems>
 	</Monster>
 	<Monster ID="14" Name="Alpha Wolf" MaximumHitPoints="225" WeaponID="1512" RewardXP="300" Gold="200" ImageName="alphaWolf.png">
+		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9008" Percentage="100"/>
 		</LootItems>

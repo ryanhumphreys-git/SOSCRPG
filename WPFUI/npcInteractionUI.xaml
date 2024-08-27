@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         FontSize="12"
         WindowStartupLocation="CenterOwner"
-        Title="npcInteractionUI" Height="450" Width="600">
+        Title="npcInteractionUI" Height="450" Width="600"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
@@ -23,8 +24,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="NPC" Background="MintCream"/>
-        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Gainsboro" BorderThickness="1"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding CurrentLocation.QuestGiverHere.Name}" Background="MintCream"/>
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Gainsboro" BorderThickness="1">
+            <Image Grid.Row="0" Grid.Column="0"
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center" 
+               Height="320" Width="300" 
+               Source="{Binding CurrentLocation.QuestGiverHere.ImageName,
+                                Converter={StaticResource FileToBitmapConverter}}"/>
+        </Border>
 
         <Label Grid.Row="0" Grid.Column="1" Content="Speech"/>
         <Border Grid.Row="0" Grid.Column="1"
@@ -51,10 +59,10 @@
             </Grid.RowDefinitions>
 
 
-            <Button Grid.Row="0" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[0].Name }"
+            <Button x:Name="btnQuestOne" Grid.Row="0" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[0].Name }"
                     Click="OnClick_ChooseQuestOne"/>
 
-            <Button Grid.Row="1" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[1].Name }"
+            <Button x:Name="btnQuestTwo" Grid.Row="1" Height="20" Width="Auto" Content="{Binding CurrentLocation.QuestGiverHere.QuestAvailableHere[1].Name }"
                     Visibility="{Binding HasTwoQuests, Converter={StaticResource BooleanToVisibility}}"
                     Click="OnClick_ChooseQuestTwo"/>
         </Grid>
