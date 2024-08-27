@@ -7,23 +7,23 @@ namespace Engine.Models
 {
     public class Player : LivingEntity
     {
-        
+        #region Backing Variables
         private string _characterClass;
         private int _experiencePoints;
-      
+        #endregion
+        #region Public Variables
         public string CharacterClass
         {
-            get { return _characterClass; }
+            get => _characterClass;
             set
             {
                 _characterClass = value;
                 OnPropertyChanged();
             }
         }
-             
         public int ExperiencePoints
         {
-            get { return _experiencePoints; }
+            get => _experiencePoints;
             private set
             {
                 _experiencePoints = value;
@@ -32,15 +32,16 @@ namespace Engine.Models
                 SetLevelAndMaximumHitpoints();
             }
         }
-        
-
+        #endregion
+        #region Collections
         public ObservableCollection<QuestStatus> Quests { get; }
         public ObservableCollection<Recipe>  Recipes { get; }
+        #endregion
         public event EventHandler OnLeveledUp;
-
+        #region Constructor
         public Player(string name, string characterClass, int experiencePoints,
-                      int maximumHitPoints, int currentHitPoints, int gold) :
-            base(name, maximumHitPoints, currentHitPoints, gold)
+                      int maximumHitPoints, int currentHitPoints, int dexterity, int gold) :
+            base(name, maximumHitPoints, currentHitPoints, dexterity, gold)
         {
             CharacterClass = characterClass;
             ExperiencePoints = experiencePoints;
@@ -48,12 +49,12 @@ namespace Engine.Models
             Quests = new ObservableCollection<QuestStatus>();
             Recipes = new ObservableCollection<Recipe>();
         }
-
+        #endregion
+        #region Public Functions
         public void AddExperience(int experiencePoints)
         {
             ExperiencePoints += experiencePoints;
         }
-
         public void LearnRecipe(Recipe recipe)
         {
             if(!Recipes.Any(r => r.ID == recipe.ID))
@@ -61,7 +62,6 @@ namespace Engine.Models
                 Recipes.Add(recipe);
             }
         }
-
         private void SetLevelAndMaximumHitpoints()
         {
             int originalLevel = Level;
@@ -75,5 +75,6 @@ namespace Engine.Models
                 OnLeveledUp?.Invoke(this, System.EventArgs.Empty);
             }
         }
+        #endregion
     }
 }

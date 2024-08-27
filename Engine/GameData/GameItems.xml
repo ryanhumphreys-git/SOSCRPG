@@ -10,10 +10,10 @@
 		<Weapon ID="1006" Name="Claw of The First Wolf" Price="50" MinimumDamage="25"  MaximumDamage="50"/>
 
 		<!-- Monster Weapons -->
-		<Weapon ID="1501" Name="Rat claws" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
-		<Weapon ID="1502" Name="Snake fangs" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
-		<Weapon ID="1503" Name="Giant rat claws" Price="0" MinimumDamage="0"  MaximumDamage="3"/>
-		<Weapon ID="1504" Name="Giant snake fangs" Price="0" MinimumDamage="0"  MaximumDamage="5"/>
+		<Weapon ID="1501" Name="Rat claws" Price="0" MinimumDamage="1"  MaximumDamage="3"/>
+		<Weapon ID="1502" Name="Snake fangs" Price="0" MinimumDamage="1"  MaximumDamage="3"/>
+		<Weapon ID="1503" Name="Giant rat claws" Price="0" MinimumDamage="1"  MaximumDamage="3"/>
+		<Weapon ID="1504" Name="Giant snake fangs" Price="0" MinimumDamage="1"  MaximumDamage="5"/>
 		<Weapon ID="1505" Name="Giant spider fangs" Price="0" MinimumDamage="3"  MaximumDamage="7"/>
 		<Weapon ID="1506" Name="Earth Blast" Price="0" MinimumDamage="8"  MaximumDamage="12"/>
 		<Weapon ID="1507" Name="Water Blast" Price="0" MinimumDamage="8"  MaximumDamage="12"/>

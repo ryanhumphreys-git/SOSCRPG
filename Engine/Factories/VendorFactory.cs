@@ -20,20 +20,23 @@ namespace Engine.Factories
             {
                 XmlDocument data = new XmlDocument();
                 data.LoadXml(File.ReadAllText(GAME_DATA_FILENAME));
-                LoadVendorsFromNodes(data.SelectNodes("/Vendors/Vendor"));
+
+                string rootImagePath = data.SelectSingleNode("/Vendors").AttributeAsString("RootImagePath");
+                LoadVendorsFromNodes(data.SelectNodes("/Vendors/Vendor"), rootImagePath);
             }
             else
             {
                 throw new FileNotFoundException($"Missing data file: {GAME_DATA_FILENAME}");
             }
         }
-        private static void LoadVendorsFromNodes(XmlNodeList nodes)
+        private static void LoadVendorsFromNodes(XmlNodeList nodes, string rootImagePath)
         {
             foreach (XmlNode node in nodes)
             {
                 Vendor vendor =
                     new Vendor(node.AttributeAsInt("ID"),
-                               node.SelectSingleNode("./Name")?.InnerText ?? "");
+                               node.SelectSingleNode("./Name")?.InnerText ?? "",
+                               $".{rootImagePath}{node.AttributeAsString("ImageName")}");
                 foreach (XmlNode childNode in node.SelectNodes("./InventoryItems/Item"))
                 {
                     int quantity = childNode.AttributeAsInt("Quantity");

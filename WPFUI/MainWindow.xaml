@@ -39,6 +39,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -50,14 +51,16 @@
             <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentPlayer.Name}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Class:"/>
             <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPlayer.CharacterClass}"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Hit Points:"/>
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentPlayer.CurrentHitPoints}"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Gold:"/>
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}"/>
-            <Label Grid.Row="4" Grid.Column="0" Content="XP:"/>
-            <Label Grid.Row="4" Grid.Column="1" Content="{Binding CurrentPlayer.ExperiencePoints}"/>
-            <Label Grid.Row="5" Grid.Column="0" Content="Level:"/>
-            <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Level}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Dexterity:"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentPlayer.Dexterity}"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Hit Points:"/>
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentPlayer.CurrentHitPoints}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Gold:"/>
+            <Label Grid.Row="4" Grid.Column="1" Content="{Binding CurrentPlayer.Gold}"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="XP:"/>
+            <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.ExperiencePoints}"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="Level:"/>
+            <Label Grid.Row="6" Grid.Column="1" Content="{Binding CurrentPlayer.Level}"/>
         </Grid>
         
         <!-- GamePlay -->
@@ -140,7 +143,7 @@
             
             <TabControl x:Name="PlayerDataTabControl">
                 <TabItem Header="Inventory" x:Name="InventoryTabItem">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.GroupedInventory}"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory.GroupedInventory}"
                               AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
@@ -238,19 +241,19 @@
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
-                          ItemsSource="{Binding CurrentPlayer.Weapons}"
+                          ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}"
                           SelectedItem="{Binding CurrentPlayer.CurrentWeapon}"
                           DisplayMemberPath="Name"
                           SelectedValuePath="ID"
                           Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"/>
                 <ComboBox Grid.Row="1" Grid.Column="0"
-                          Visibility="{Binding CurrentPlayer.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
-                          ItemsSource="{Binding CurrentPlayer.Consumables}"
+                          Visibility="{Binding CurrentPlayer.Inventory.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
+                          ItemsSource="{Binding CurrentPlayer.Inventory.Consumables}"
                           SelectedItem="{Binding CurrentPlayer.CurrentConsumable}"
                           DisplayMemberPath="Name"/>
 
                 <Button Grid.Row="1" Grid.Column="2"
-                        Visibility="{Binding CurrentPlayer.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding CurrentPlayer.Inventory.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
                         Content="Use" Click="OnClick_UseCurrentConsumable"/>
 
                 <Button Grid.Row="0" Grid.Column="2"

@@ -19,16 +19,19 @@ namespace Engine.Factories
             {
                 XmlDocument data = new XmlDocument();
                 data.LoadXml(File.ReadAllText(GAME_DATA_FILENAME));
-                LoadQuestGiversFromNodes(data.SelectNodes("/QuestGivers/QuestGiver"));
+
+                string rootImagePath = data.SelectSingleNode("/QuestGivers").AttributeAsString("RootImagePath");
+                LoadQuestGiversFromNodes(data.SelectNodes("/QuestGivers/QuestGiver"), rootImagePath);
             }
         }
-        private static void LoadQuestGiversFromNodes(XmlNodeList nodes)
+        private static void LoadQuestGiversFromNodes(XmlNodeList nodes, string rootImagePath)
         {
             foreach (XmlNode node in nodes)
             {
                 QuestGiver questGiver =
                     new QuestGiver(node.AttributeAsInt("ID"),
-                                   node.SelectSingleNode("./Name")?.InnerText ?? "");
+                                   node.SelectSingleNode("./Name")?.InnerText ?? "",
+                                   $".{rootImagePath}{node.AttributeAsString("ImageName")}");
                 AddQuests(questGiver, node.SelectNodes("./Quests"));
                 //foreach (XmlNode childNode in node.SelectNodes("./QuestGiver/Quests"))
                 //{

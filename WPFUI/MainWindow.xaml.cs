@@ -13,14 +13,13 @@ using Engine.Models;
 using Engine.ViewModels;
 using System;
 using System.Collections.Generic;
+using Engine.Services;
 
 namespace WPFUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
         public readonly GameSession _gameSession = new GameSession();
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
         public MainWindow()
@@ -29,7 +28,7 @@ namespace WPFUI
 
             InitializeUserInputActions();
 
-            _gameSession.OnMessageRaised += OnGameMessageRaised;
+            _messageBroker.OnMessageRaised += OnGameMessageRaised;
 
             DataContext = _gameSession;
         }
@@ -68,7 +67,7 @@ namespace WPFUI
             npcInteractionUI interactionWindow = new npcInteractionUI();
             interactionWindow.Owner = this;
             interactionWindow.DataContext = _gameSession;
-            _gameSession.OnMessageRaised -= OnGameMessageRaised;
+            _messageBroker.OnMessageRaised -= OnGameMessageRaised;
             interactionWindow.Closed += InteractionWindow_Closed;
             interactionWindow.ShowDialog();  
         }
@@ -118,7 +117,7 @@ namespace WPFUI
         }
         private void InteractionWindow_Closed(object? sender, EventArgs e)
         {
-            _gameSession.OnMessageRaised += OnGameMessageRaised;
+            _messageBroker.OnMessageRaised += OnGameMessageRaised;
         }
 
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
