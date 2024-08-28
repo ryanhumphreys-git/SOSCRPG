@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Actions;
-
+using System.Text.Json.Serialization;
 namespace Engine.Models
 {
     public class GameItem
@@ -16,12 +16,16 @@ namespace Engine.Models
             Weapon,
             Consumable
         }
-
+        [JsonIgnore]
         public ItemCategory Category { get; }
         public int ItemTypeID { get; }
+        [JsonIgnore]
         public string Name { get; }
+        [JsonIgnore]
         public int Price { get; }
+        [JsonIgnore]
         public bool IsUnique { get;}
+        [JsonIgnore]
         public IAction Action { get; set; }
 
         public GameItem(ItemCategory category, int itemTypeID, string name, int price,

@@ -14,25 +14,30 @@ using Engine.ViewModels;
 using System;
 using System.Collections.Generic;
 using Engine.Services;
+using System.ComponentModel;
+using Microsoft.Win32;
+using WPFUI.Windows;
+using Engine.Factories;
 
 namespace WPFUI
 {
     public partial class MainWindow : Window
     {
+        private const string SAVE_GAME_FILE_EXTENSION = "soscrpg";
+
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
-        public readonly GameSession _gameSession = new GameSession();
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
-        public MainWindow()
+
+        private GameSession _gameSession;
+
+        public MainWindow(Player player, int xLocation = 0, int yLocation = -1)
         {
             InitializeComponent();
 
             InitializeUserInputActions();
 
-            _messageBroker.OnMessageRaised += OnGameMessageRaised;
-
-            DataContext = _gameSession;
+            SetActiveGameSessionTo(new GameSession(player, xLocation, yLocation));
         }
-
         private void OnClick_MoveNorth(object sender, RoutedEventArgs e)
         {
             _gameSession.MoveNorth();
@@ -119,11 +124,79 @@ namespace WPFUI
         {
             _messageBroker.OnMessageRaised += OnGameMessageRaised;
         }
+        private void SetActiveGameSessionTo(GameSession gameSession)
+        {
+            _messageBroker.OnMessageRaised -= OnGameMessageRaised;
 
+            _gameSession = gameSession;
+            DataContext = _gameSession;
+
+            GameMessages.Document.Blocks.Clear();
+
+            _messageBroker.OnMessageRaised += OnGameMessageRaised;
+        }
+        private void StartNewGame_OnClick(object sender, RoutedEventArgs e)
+        {
+            Startup startup = new Startup();
+            startup.Show();
+            Close();
+        }
+        private void LoadGame_OnClick(object sender, RoutedEventArgs e)
+        {
+            //OpenFileDialog openFileDialog =
+            //    new OpenFileDialog
+            //    {
+            //        InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+            //        Filter = $"Saved games (*.{SAVE_GAME_FILE_EXTENSION})|*.{SAVE_GAME_FILE_EXTENSION}"
+            //    };
+
+            //if(openFileDialog.ShowDialog() == true)
+            //{
+            //    SetActiveGameSessionTo(SaveGameService.LoadLastSaveOrCreateNew(openFileDialog.FileName));
+            //}
+        }
+        private void SaveGame_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveGame();
+        }
+        private void Exit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
         {
             GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
             GameMessages.ScrollToEnd();
+        }
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            AskToSaveGame();
+        }
+        private void AskToSaveGame()
+        {
+            YesNoWindow message =
+                new YesNoWindow("Save Game", "Do you want to save your game?");
+            message.Owner = GetWindow(this);
+            message.ShowDialog();
+
+            if (message.ClickedYes)
+            {
+                SaveGame();
+            }
+        }
+        private void SaveGame()
+        {
+            SaveFileDialog saveFileDialog =
+                new SaveFileDialog
+                {
+                    InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                    Filter = $"Saved games (*.{SAVE_GAME_FILE_EXTENSION})|*.{SAVE_GAME_FILE_EXTENSION}"
+                };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                SaveGameService.Save(_gameSession, saveFileDialog.FileName);
+            }
         }
     }
 }

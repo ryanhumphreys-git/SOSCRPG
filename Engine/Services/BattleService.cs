@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Models;
+using Engine.Shared;
 
 namespace Engine.Services
 {
@@ -21,25 +22,25 @@ namespace Engine.Services
         {
             // Formula is: ((Dex(player)^2) - Dex(monster)^2)/10) + random(-10/10)
             // Results in +- 41.5
-            int playerDexterity = player.Dexterity * player.Dexterity;
-            int opponentDexterity = opponent.Dexterity * opponent.Dexterity;
+            int playerDexterity = player.GetAttribute("DEX").ModifiedValue * player.GetAttribute("DEX").ModifiedValue;
+            int opponentDexterity = opponent.GetAttribute("DEX").ModifiedValue * opponent.GetAttribute("DEX").ModifiedValue;
             decimal dexterityOffset = (playerDexterity - opponentDexterity) / 10m;
-            int randomOffset = RandomNumberGenerator.NumberBetween(-10, 10);
+            int randomOffset = DiceService.Instance.Roll(20).Value - 10;
             decimal totalOffset = dexterityOffset + randomOffset;
 
-            return RandomNumberGenerator.NumberBetween(0, 100) <= 50 + totalOffset
+            return DiceService.Instance.Roll(100).Value <= 50 + totalOffset
                             ? Combatant.Player 
                             : Combatant.Opponent;
         }
         public static bool AttackSucceeded(LivingEntity attacker, LivingEntity target)
         {
-            int playerDexterity = attacker.Dexterity * attacker.Dexterity;
-            int opponentDexterity = target.Dexterity * target.Dexterity;
+            int playerDexterity = attacker.GetAttribute("DEX").ModifiedValue * attacker.GetAttribute("DEX").ModifiedValue;
+            int opponentDexterity = target.GetAttribute("DEX").ModifiedValue * target.GetAttribute("DEX").ModifiedValue;
             decimal dexterityOffset = (playerDexterity - opponentDexterity) / 10m;
-            int randomOffset = RandomNumberGenerator.NumberBetween(-10, 10);
+            int randomOffset = DiceService.Instance.Roll(20).Value - 10;
             decimal totalOffset = dexterityOffset + randomOffset;
 
-            return RandomNumberGenerator.NumberBetween(0, 100) <= 50 + totalOffset;
+            return DiceService.Instance.Roll(100).Value <= 50 + totalOffset;
         }
     }
 }

@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Engine.Models
 {
     public class Quest
     {
+        #region Properties
         public int ID { get; }
+        [JsonIgnore]
         public string Name { get; }
+        [JsonIgnore]
         public string Description { get; }
-
+        [JsonIgnore]
         public List<ItemQuantity> ItemsToComplete { get; }
-
+        [JsonIgnore]
         public int RewardExperiencePoints   { get; }
+        [JsonIgnore]
         public int RewardGold {  get; }
+        [JsonIgnore]
         public List<ItemQuantity> RewardItems { get; }
-
+        #endregion
+        [JsonIgnore]
         public string ToolTipContents =>
             Description + Environment.NewLine + Environment.NewLine +
             "Items to complete the quest" + Environment.NewLine +

@@ -10,6 +10,9 @@ using System.ComponentModel;
 using Engine.EventArgs;
 using Engine.Services;
 using static System.Collections.Specialized.BitVector32;
+using System.Text.Json.Serialization;
+using System.Text.Json.Nodes;
+using System.Text.Json;
 
 namespace Engine.ViewModels
 {
@@ -18,6 +21,8 @@ namespace Engine.ViewModels
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
 
         #region Backing Variables
+        private GameDetails _gameDetails;
+
         private Battle _currentBattle;
         private Location _currentLocation;
         private Monster _currentMonster;
@@ -26,6 +31,16 @@ namespace Engine.ViewModels
         private QuestGiver _currentQuestGiver;
         #endregion
         #region Properties
+        [JsonIgnore]
+        public GameDetails GameDetails
+        {
+            get => _gameDetails;
+            set
+            {
+                _gameDetails = value;
+                OnPropertyChanged();
+            }
+        }
         public Player CurrentPlayer
         {
             get { return _currentPlayer; }
@@ -64,15 +79,17 @@ namespace Engine.ViewModels
                 CurrentQuestGiver = CurrentLocation.QuestGiverHere;
             }
         }
+        [JsonIgnore]
         public Monster CurrentMonster
         {
-            get { return _currentMonster; }
+            get => _currentMonster; 
             set
             {
                 if(_currentBattle != null)
                 {
                     _currentBattle.OnCombatVictory -= OnCurrentMonsterKilled;
                     _currentBattle.Dispose();
+                    _currentBattle = null;
                 }
 
                 _currentMonster = value;
@@ -80,13 +97,13 @@ namespace Engine.ViewModels
                 if(_currentMonster != null)
                 {
                     _currentBattle = new Battle(CurrentPlayer, CurrentMonster);
-
                     _currentBattle.OnCombatVictory += OnCurrentMonsterKilled;
                 }
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(HasMonster));
             }
         }
+        [JsonIgnore]
         public Vendor CurrentVendor
         {
             get { return _currentVendor; }
@@ -98,6 +115,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasVendor));
             }
         }
+        [JsonIgnore]
         public QuestGiver CurrentQuestGiver
         {
             get { return _currentQuestGiver; }
@@ -109,37 +127,35 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasQuestGiver));
             }
         }
+        [JsonIgnore]
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
+        [JsonIgnore]
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
+        [JsonIgnore]
         public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
+        [JsonIgnore]
         public bool HasLocationToSouth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
+        [JsonIgnore]
         public World CurrentWorld { get; }
+        [JsonIgnore]
         public bool HasMonster => CurrentMonster != null;
+        [JsonIgnore]
         public bool HasVendor => CurrentVendor != null;
+        [JsonIgnore]
         public bool HasQuestGiver => CurrentQuestGiver != null;
+        [JsonIgnore]
         public bool HasTwoQuests => !(CurrentLocation.QuestGiverHere.QuestAvailableHere.Count > 0);
+        [JsonIgnore]
         public Quest SelectedQuest { get; set; }
         #endregion
         #region Constructor
-        public GameSession()
+        public GameSession(Player player, int xCoordinate, int yCoordinate)
         {
-            int dexterity = RandomNumberGenerator.NumberBetween(8, 18);
-
-            CurrentPlayer = new Player("Starxo", "Fighter", 0, 10, 10, dexterity, 100);
-            
-            if(!CurrentPlayer.Inventory.Weapons.Any())
-            {
-                CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
-            }
-
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(2001));
-            CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
+            PopulateGameDetails();
 
             CurrentWorld = WorldFactory.CreateWorld();
-
-            CurrentLocation = CurrentWorld.LocationAt(0, -1);
+            CurrentPlayer = player;
+            CurrentLocation = CurrentWorld.LocationAt(xCoordinate, yCoordinate);
         }
         #endregion
         #region Public Functions
@@ -174,6 +190,10 @@ namespace Engine.ViewModels
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1);
             }
             
+        }
+        public void PopulateGameDetails()
+        {
+            GameDetails = GameDetailsService.ReadGameDetails();
         }
         public void CompleteQuest(Quest currentQuest)
         {
@@ -250,14 +270,28 @@ namespace Engine.ViewModels
         }
         public void AttackCurrentMonster()
         {
-            _currentBattle.AttackOpponent();
+            _currentBattle?.AttackOpponent();
         }
         public void UseCurrentConsumable()
         {
             if(CurrentPlayer.CurrentConsumable != null)
             {
+                if(_currentBattle == null)
+                {
+                    CurrentPlayer.OnActionPerformed += OnConsumableActionPerformed;
+                }
+
                 CurrentPlayer.UseCurrentConsumable();
+
+                if(_currentBattle == null)
+                {
+                    CurrentPlayer.OnActionPerformed -= OnConsumableActionPerformed;
+                }
             }
+        }
+        private void OnConsumableActionPerformed(object sender, string result)
+        {
+            _messageBroker.RaiseMessage(result);
         }
         public void CraftItemUsing(Recipe recipe)
         {

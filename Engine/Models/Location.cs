@@ -3,21 +3,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Engine.Factories;
+using Engine.Services;
 
 namespace Engine.Models
 {
     public class Location
     {
         public int XCoordinate {  get; }
-        public int YCoordinate { get; } 
+        public int YCoordinate { get; }
+        [JsonIgnore]
         public string Name { get; }
+        [JsonIgnore]
         public string Description { get; }
+        [JsonIgnore]
         public string ImageName { get; }
-        //public List<Quest> QuestsAvailableHere { get; set; } = new List<Quest>();
+        [JsonIgnore]
         public List<MonsterEncounter> MonstersHere { get; } = new List<MonsterEncounter>();
+        [JsonIgnore]
         public Vendor VendorHere { get; set; }
+        [JsonIgnore]
         public QuestGiver QuestGiverHere { get; set; }
 
         public Location(int xCoordinate, int yCoordinate, string name, string description, string imageName)
@@ -50,7 +57,7 @@ namespace Engine.Models
 
             int totalChances = MonstersHere.Sum(m => m.ChanceOfEncountering);
 
-            int randomNumber = RandomNumberGenerator.NumberBetween(1, totalChances);
+            int randomNumber = DiceService.Instance.Roll(totalChances, 1).Value;
 
             int runningTotal = 0;
 

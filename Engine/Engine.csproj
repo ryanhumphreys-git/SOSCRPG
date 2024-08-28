@@ -41,6 +41,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="d20tek-dicenotation" Version="4.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="GameData\GameDetails.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Images\Locations\abandonedCampground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

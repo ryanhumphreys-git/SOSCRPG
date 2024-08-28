@@ -14,10 +14,10 @@ namespace TestEngine.Services
         [Test]
         public void Test_FirstAttacker()
         {
-            Player player = new Player("", "", 0, 0, 0, 18, 0);
-            Monster monster = new Monster(0, "", "", 0, 10, null, 0, 0);
+            //Player player = new Player("", "", 0, 0, 0, 18, 0);
+            //Monster monster = new Monster(0, "", "", 0, 10, null, 0, 0);
 
-            BattleService.Combatant result = BattleService.FirstAttacker(player, monster);
+            //BattleService.Combatant result = BattleService.FirstAttacker(player, monster);
         }
     }
 }

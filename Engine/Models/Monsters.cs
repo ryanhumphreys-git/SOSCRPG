@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Factories;
+using Engine.Services;
 
 namespace Engine.Models
 {
@@ -19,10 +20,10 @@ namespace Engine.Models
 
         #region Constructor
         public Monster(int id, string name, string imageName,
-                       int maximumHitPoints, int dexterity,
+                       int maximumHitPoints, IEnumerable<PlayerAttribute> attributes,
                        GameItem currentWeapon,
                        int rewardExperiencePoints, int gold) :
-            base(name, maximumHitPoints, maximumHitPoints, dexterity, gold)
+            base(name, maximumHitPoints, maximumHitPoints, attributes, gold)
         {
             ID = id;
             ImageName = imageName;
@@ -40,14 +41,14 @@ namespace Engine.Models
         public Monster GetNewInstance()
         {
             Monster newMonster =
-                new Monster(ID, Name, ImageName, MaximumHitPoints, Dexterity, CurrentWeapon,
+                new Monster(ID, Name, ImageName, MaximumHitPoints, Attributes, CurrentWeapon,
                             RewardExperiencePoints, Gold);
 
             foreach(ItemPercentage itemPercentage in _lootTable)
             {
                 newMonster.AddItemToLootTable(itemPercentage.ID, itemPercentage.Percentage);
 
-                if(RandomNumberGenerator.NumberBetween(1,100) <= itemPercentage.Percentage)
+                if(DiceService.Instance.Roll(1,100).Value <= itemPercentage.Percentage)
                 {
                     newMonster.AddItemToInventory(ItemFactory.CreateGameItem(itemPercentage.ID));
                 }
