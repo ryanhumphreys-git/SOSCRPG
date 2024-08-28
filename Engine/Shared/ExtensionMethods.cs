@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Xml;
+using Engine.Models;
 
 namespace Engine.Shared
 {
@@ -22,6 +25,27 @@ namespace Engine.Shared
                 throw new ArgumentException($"The attribute '{attributeName}' does not exist");
             }
             return attribute.Value;
+        }
+        public static string StringValueOf(this JsonObject jsonObject, string key)
+        {
+            if(jsonObject.TryGetPropertyValue(key, out JsonNode value))
+            {
+                return value.ToString();
+            }
+            return null;
+        }
+        public static int IntValueOf(this JsonObject jsonElement, string key)
+        {
+            if(jsonElement.TryGetPropertyValue(key, out JsonNode value))
+            {
+                string valueString = value.ToString();
+                return Convert.ToInt32(valueString);
+            }
+            throw new Exception("value cannot be converted to int");
+        }
+        public static PlayerAttribute GetAttribute(this LivingEntity entity, string attributeKey)
+        {
+            return entity.Attributes.First(pa => pa.Key.Equals(attributeKey, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

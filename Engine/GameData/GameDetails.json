@@ -1,0 +1,141 @@
+﻿{
+    "Title": "SOSCSRPG",
+    "SubTitle":  "Adventuring Around", 
+    "Version": "0.1.000",
+    "PlayerAttributes": [
+        {
+            "Key": "STR",
+            "DisplayName": "Strength",
+            "DiceNotation": "3d6"
+        },
+        {
+            "Key": "INT",
+            "DisplayName": "Intelligence",
+            "DiceNotation": "3d6"
+        },
+        {
+            "Key": "WIS",
+            "DisplayName": "Wisdom",
+            "DiceNotation": "3d6"
+        },
+        {
+            "Key": "CON",
+            "DisplayName": "Constitution",
+            "DiceNotation": "3d6"
+        },
+        {
+            "Key": "DEX",
+            "DisplayName": "Dexterity",
+            "DiceNotation": "3d6"
+        },
+        {
+            "Key": "CHA",
+            "DisplayName": "Charisma",
+            "DiceNotation": "3d6"
+        }
+    ],
+    "Races": [
+        {
+            "Key": "HUMAN",
+            "DisplayName": "Human",
+            "PlayerAttributeModifiers": [
+                {
+                    "Key": "CON",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "STR",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "INT",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "WIS",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "CHA",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "DEX",
+                    "Modifier": "1"
+                }
+            ]
+        },
+        {
+            "Key": "ELF",
+            "DisplayName": "Elf",
+            "PlayerAttributeModifiers": [
+                {
+                    "Key": "INT",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "WIS",
+                    "Modifier": "1"
+                },
+                {
+                    "Key": "CHA",
+                    "Modifier": "2"
+                },
+                {
+                    "Key": "DEX",
+                    "Modifier": "2"
+                }
+            ]
+        },
+        {
+            "Key": "ORC",
+            "DisplayName": "Orc",
+            "PlayerAttributeModifiers": [
+                {
+                    "Key": "CON",
+                    "Modifier": "3"
+                },
+                {
+                    "Key": "STR",
+                    "Modifier": "3"
+                }
+            ]
+        },
+        {
+            "Key": "DWARF",
+            "DisplayName": "Dwarf",
+            "PlayerAttributeModifiers": [
+                {
+                    "Key": "CON",
+                    "Modifier": "2"
+                },
+                {
+                    "Key": "STR",
+                    "Modifier": "2"
+                },
+                {
+                    "Key": "WIS",
+                    "Modifier": "2"
+                }
+            ]
+        },
+        {
+            "Key": "GNOME",
+            "DisplayName": "Gnome",
+            "PlayerAttributeModifiers": [
+                {
+                    "Key": "INT",
+                    "Modifier": "3"
+                },
+                {
+                    "Key": "WIS",
+                    "Modifier": "2"
+                },
+                {
+                    "Key": "DEX",
+                    "Modifier": "1"
+                }
+            ]
+        }
+    ]
+}
