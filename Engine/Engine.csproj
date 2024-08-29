@@ -7,48 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="GameData\GameItems.xml" />
-    <None Remove="GameData\Locations.xml" />
-    <None Remove="GameData\Monsters.xml" />
-    <None Remove="GameData\QuestGivers.xml" />
-    <None Remove="GameData\Quests.xml" />
-    <None Remove="GameData\Recipes.xml" />
-    <None Remove="GameData\Vendors.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="GameData\GameItems.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Locations.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Monsters.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\QuestGivers.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Quests.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Recipes.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Vendors.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="GameData\**" />
+    <EmbeddedResource Remove="GameData\**" />
+    <None Remove="GameData\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="d20tek-dicenotation" Version="4.0.1" />
+    <PackageReference Include="Fody" Version="6.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="GameData\GameDetails.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\SOSCSRPG.Core\SOSCSRPG.Core.csproj" />
+    <ProjectReference Include="..\SOSCSRPG.Models\SOSCSRPG.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Images\Locations\abandonedCampground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -178,6 +157,12 @@
     <None Update="Images\NPC%27s\shadyMerchant.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
