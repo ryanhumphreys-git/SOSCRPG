@@ -11,10 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Engine.EventArgs;
-using Engine.Factories;
-using Engine.Services;
-using Engine.ViewModels;
+using SOSCSRPG.Models.EventArgs;
+using SOSCSRPG.ViewModels;
+using SOSCSRPG.Core;
 
 namespace WPFUI
 {

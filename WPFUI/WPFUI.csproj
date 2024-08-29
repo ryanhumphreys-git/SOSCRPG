@@ -9,9 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.csproj" />
+    <ProjectReference Include="..\SOSCSRPG.Core\SOSCSRPG.Core.csproj" />
     <ProjectReference Include="..\SOSCSRPG.Models\SOSCSRPG.Models.csproj" />
     <ProjectReference Include="..\SOSCSRPG.ViewModels\SOSCSRPG.ViewModels.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /s /y &quot;C:\Users\rthum\source\repos\SOSCRPG\GameFiles\*.*&quot; &quot;C:\Users\rthum\source\repos\SOSCRPG\WPFUI\bin\Debug\net8.0-windows&quot;" />
+  </Target>
 </Project>

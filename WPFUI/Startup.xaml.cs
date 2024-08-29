@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using Engine.Models;
-using Engine.Services;
-using Engine.ViewModels;
+using SOSCSRPG.Models;
+using SOSCSRPG.ViewModels;
 using Microsoft.Win32;
+using SOSCSRPG.Services;
 namespace WPFUI
 {
     public partial class Startup : Window
@@ -30,12 +30,12 @@ namespace WPFUI
                 };
             if(openFileDialog.ShowDialog() == true)
             {
-                GameSession gameSession = SaveGameService.LoadLastSaveOrCreateNew(openFileDialog.FileName);
+                GameState gameState = SaveGameService.LoadLastSaveOrCreateNew(openFileDialog.FileName);
 
                 MainWindow mainWindow =
-                    new MainWindow(gameSession.CurrentPlayer,
-                    gameSession.CurrentLocation.XCoordinate,
-                    gameSession.CurrentLocation.YCoordinate);
+                    new MainWindow(gameState.Player,
+                                   gameState.XCoordinate,
+                                   gameState.YCoordinate);
 
                 mainWindow.Show();
                 Close();

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOSCSRPG.Models", "SOSCSRPG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOSCSRPG.Services", "SOSCSRPG.Services\SOSCSRPG.Services.csproj", "{CDD5F0EA-F38E-41C6-988E-FBE05D5277C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOSCSRPG.Core", "SOSCSRPG.Core\SOSCSRPG.Core.csproj", "{5380160D-9FC3-41A3-8E4F-38D48C9F09E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{CDD5F0EA-F38E-41C6-988E-FBE05D5277C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDD5F0EA-F38E-41C6-988E-FBE05D5277C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDD5F0EA-F38E-41C6-988E-FBE05D5277C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5380160D-9FC3-41A3-8E4F-38D48C9F09E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5380160D-9FC3-41A3-8E4F-38D48C9F09E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5380160D-9FC3-41A3-8E4F-38D48C9F09E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5380160D-9FC3-41A3-8E4F-38D48C9F09E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Engine.Models;
-using Engine.ViewModels;
+using SOSCSRPG.Models;
+using SOSCSRPG.ViewModels;
 
 namespace WPFUI
 {

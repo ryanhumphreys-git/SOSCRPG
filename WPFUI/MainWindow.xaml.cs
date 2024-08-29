@@ -8,16 +8,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Engine.EventArgs;
-using Engine.Models;
-using Engine.ViewModels;
+using SOSCSRPG.Core;
+using SOSCSRPG.Models;
+using SOSCSRPG.ViewModels;
 using System;
 using System.Collections.Generic;
-using Engine.Services;
+using SOSCSRPG.Services;
 using System.ComponentModel;
 using Microsoft.Win32;
 using WPFUI.Windows;
-using Engine.Factories;
+using SOSCSRPG.Services.Factories;
 
 namespace WPFUI
 {
@@ -195,7 +195,8 @@ namespace WPFUI
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                SaveGameService.Save(_gameSession, saveFileDialog.FileName);
+                SaveGameService.Save(new GameState(_gameSession.CurrentPlayer, _gameSession.CurrentLocation.XCoordinate,
+                                                   _gameSession.CurrentLocation.YCoordinate), saveFileDialog.FileName);
             }
         }
     }

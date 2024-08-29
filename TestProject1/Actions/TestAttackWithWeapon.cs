@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Engine.Actions;
-using Engine.Factories;
+using SOSCSRPG.Models.Actions;
+using SOSCSRPG.Services.Factories;
 using Engine.Models;
 using NUnit.Framework;
 
-namespace TestEngine.Actions
+namespace TestSOSCSRPG.Models.Actions
 {
     public class TestAttackWithWeapon
     {

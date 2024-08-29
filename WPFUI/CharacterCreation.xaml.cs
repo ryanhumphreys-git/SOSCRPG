@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Engine.Models;
-using Engine.Services;
-using Engine.ViewModels;
+using SOSCSRPG.Models;
+using SOSCSRPG.ViewModels;
 namespace WPFUI
 {
     public partial class CharacterCreation : Window
