@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SOSCSRPG.Models;
+﻿using SOSCSRPG.Core;
 using SOSCSRPG.Models.Shared;
-using SOSCSRPG.Core;
 
 
 namespace SOSCSRPG.Models.Actions
@@ -38,8 +32,10 @@ namespace SOSCSRPG.Models.Actions
             if(AttackSucceeded(actor, target))
             {
                 int damage = DiceService.Instance.Roll(_damageDice).Value;
-                ReportResult($"{actorName} hit {target.Name} for {damage} damage{(damage > 1 ? "s" : "")}" +
-                    $" with {actor.CurrentWeapon.Name}.");
+                ReportResult($"{actorName} hit {target.Name} for {damage} damage"
+                    + Environment.NewLine
+                    + $"with {actor.CurrentWeapon.Name}."
+                    + Environment.NewLine);
                 target.TakeDamage(damage);
             }
             else

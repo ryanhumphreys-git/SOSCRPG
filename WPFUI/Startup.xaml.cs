@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using SOSCSRPG.Models;
-using SOSCSRPG.ViewModels;
 using Microsoft.Win32;
+using SOSCSRPG.Models;
 using SOSCSRPG.Services;
 namespace WPFUI
 {

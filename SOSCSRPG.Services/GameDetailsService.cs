@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using SOSCSRPG.Models.Shared;
+﻿using System.Text.Json.Nodes;
 using SOSCSRPG.Models;
+using SOSCSRPG.Models.Shared;
 
 namespace SOSCSRPG.Services
 {

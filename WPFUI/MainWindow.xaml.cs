@@ -1,23 +1,13 @@
-﻿using System.Text;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SOSCSRPG.Core;
-using SOSCSRPG.Models;
-using SOSCSRPG.ViewModels;
-using System;
-using System.Collections.Generic;
-using SOSCSRPG.Services;
-using System.ComponentModel;
 using Microsoft.Win32;
+using SOSCSRPG.Models;
+using SOSCSRPG.Services;
+using SOSCSRPG.ViewModels;
 using WPFUI.Windows;
-using SOSCSRPG.Services.Factories;
 
 namespace WPFUI
 {
@@ -25,10 +15,11 @@ namespace WPFUI
     {
         private const string SAVE_GAME_FILE_EXTENSION = "soscrpg";
 
-        private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
+        //private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
 
         private GameSession _gameSession;
+        private Point? _dragStart;
 
         public MainWindow(Player player, int xLocation = 0, int yLocation = -1)
         {
@@ -37,6 +28,16 @@ namespace WPFUI
             InitializeUserInputActions();
 
             SetActiveGameSessionTo(new GameSession(player, xLocation, yLocation));
+
+            foreach(UIElement element in GameCanvas.Children)
+            {
+                if(element is Canvas)
+                {
+                    element.MouseDown += GameCanvas_OnMouseDown;
+                    element.MouseMove += GameCanvas_OnMouseMove;
+                    element.MouseUp += GameCanvas_OnMouseUp;
+                }
+            }
         }
         private void OnClick_MoveNorth(object sender, RoutedEventArgs e)
         {
@@ -72,7 +73,7 @@ namespace WPFUI
             npcInteractionUI interactionWindow = new npcInteractionUI();
             interactionWindow.Owner = this;
             interactionWindow.DataContext = _gameSession;
-            _messageBroker.OnMessageRaised -= OnGameMessageRaised;
+            _gameSession.GameMessages.CollectionChanged -= GameMessages_CollectionChanged;
             interactionWindow.Closed += InteractionWindow_Closed;
             interactionWindow.ShowDialog();  
         }
@@ -94,9 +95,11 @@ namespace WPFUI
             _userInputActions.Add(Key.D, () => _gameSession.MoveEast());
             _userInputActions.Add(Key.Z, () => _gameSession.AttackCurrentMonster());
             _userInputActions.Add(Key.C, () => _gameSession.UseCurrentConsumable());
-            _userInputActions.Add(Key.I, () => SetTabFocusTo("InventoryTabItem"));
-            _userInputActions.Add(Key.Q, () => SetTabFocusTo("QuestTabItem"));
-            _userInputActions.Add(Key.R, () => SetTabFocusTo("RecipesTabItem"));
+            _userInputActions.Add(Key.I, () => _gameSession.InventoryDetails.IsVisible = !_gameSession.InventoryDetails.IsVisible);
+            _userInputActions.Add(Key.Q, () => _gameSession.QuestDetails.IsVisible = !_gameSession.QuestDetails.IsVisible);
+            _userInputActions.Add(Key.R, () => _gameSession.RecipesDetails.IsVisible = !_gameSession.RecipesDetails.IsVisible);
+            _userInputActions.Add(Key.P, () => _gameSession.PlayerDetails.IsVisible = !_gameSession.PlayerDetails.IsVisible);
+            _userInputActions.Add(Key.M, () => _gameSession.GameMessagesDetails.IsVisible = !_gameSession.GameMessagesDetails.IsVisible);
             _userInputActions.Add(Key.T, () => OnClick_DisplayVendorScreen(this, new RoutedEventArgs()));
         }
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
@@ -104,56 +107,109 @@ namespace WPFUI
             if(_userInputActions.ContainsKey(e.Key))
             {
                 _userInputActions[e.Key].Invoke();
+
+                e.Handled = true;
             }
         }
-        private void SetTabFocusTo(string tabName)
+        private void ClosePlayerDetailsWindow_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach(object item in PlayerDataTabControl.Items)
+            _gameSession.PlayerDetails.IsVisible = false;
+        }
+        private void CloseInventoryWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            _gameSession.InventoryDetails.IsVisible = false;
+        }
+        private void CloseQuestsWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            _gameSession.QuestDetails.IsVisible = false;
+        }
+        private void CloseRecipesWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            _gameSession.RecipesDetails.IsVisible = false;
+        }
+        private void CloseGameMessagesDetailsWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            _gameSession.GameMessagesDetails.IsVisible = false;
+        }
+        private void GameCanvas_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton != MouseButton.Left)
             {
-                if(item is TabItem tabItem)
-                {
-                    if(tabItem.Name == tabName)
-                    {
-                        tabItem.IsSelected = true;
-                        return;
-                    }
-                }
+                return;
             }
+
+            UIElement movingElement = (UIElement)sender;
+            _dragStart = e.GetPosition(movingElement);
+            movingElement.CaptureMouse();
+
+            e.Handled = true;
+        }
+        private void GameCanvas_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if(_dragStart == null || e.LeftButton != MouseButtonState.Pressed)
+            {
+                return;
+            }
+
+            Point mousePosition = e.GetPosition(GameCanvas);
+            UIElement movingElement = (UIElement)(sender);
+
+            if (mousePosition.X < _dragStart.Value.X ||
+               mousePosition.Y < _dragStart.Value.Y ||
+               mousePosition.X > GameCanvas.ActualWidth - ((Canvas)movingElement).ActualWidth + _dragStart.Value.X ||
+               mousePosition.Y > GameCanvas.ActualHeight - ((Canvas)movingElement).ActualHeight + _dragStart.Value.Y)
+            {
+                return;
+            }
+            
+            Canvas.SetLeft(movingElement, mousePosition.X - _dragStart.Value.X);
+            Canvas.SetTop(movingElement, mousePosition.Y - _dragStart.Value.Y);
+
+            e.Handled = true;
+        }
+        private void GameCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var movingElement = (UIElement)sender;
+            movingElement.ReleaseMouseCapture();
+            _dragStart = null;
+
+            e.Handled = true;
         }
         private void InteractionWindow_Closed(object? sender, EventArgs e)
         {
-            _messageBroker.OnMessageRaised += OnGameMessageRaised;
+            _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;
+        }
+        private void ShowControls_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowControls showControls = new ShowControls();
+            showControls.ShowDialog();
         }
         private void SetActiveGameSessionTo(GameSession gameSession)
         {
-            _messageBroker.OnMessageRaised -= OnGameMessageRaised;
+            if(_gameSession != null)
+            {
+                _gameSession.GameMessages.CollectionChanged -= GameMessages_CollectionChanged;
+            }
 
             _gameSession = gameSession;
             DataContext = _gameSession;
 
-            GameMessages.Document.Blocks.Clear();
-
-            _messageBroker.OnMessageRaised += OnGameMessageRaised;
+            _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;
+        }
+        private void GameMessages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            (GameMessagesFlowDocumentScrollViewer
+                .Template
+                .FindName("PART_ContentHost", GameMessagesFlowDocumentScrollViewer) as ScrollViewer)
+                ?.ScrollToEnd();
         }
         private void StartNewGame_OnClick(object sender, RoutedEventArgs e)
         {
+            _gameSession?.Dispose();
+
             Startup startup = new Startup();
             startup.Show();
             Close();
-        }
-        private void LoadGame_OnClick(object sender, RoutedEventArgs e)
-        {
-            //OpenFileDialog openFileDialog =
-            //    new OpenFileDialog
-            //    {
-            //        InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
-            //        Filter = $"Saved games (*.{SAVE_GAME_FILE_EXTENSION})|*.{SAVE_GAME_FILE_EXTENSION}"
-            //    };
-
-            //if(openFileDialog.ShowDialog() == true)
-            //{
-            //    SetActiveGameSessionTo(SaveGameService.LoadLastSaveOrCreateNew(openFileDialog.FileName));
-            //}
         }
         private void SaveGame_OnClick(object sender, RoutedEventArgs e)
         {
@@ -162,11 +218,6 @@ namespace WPFUI
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-        private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
-        {
-            GameMessages.Document.Blocks.Add(new Paragraph(new Run(e.Message)));
-            GameMessages.ScrollToEnd();
         }
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {

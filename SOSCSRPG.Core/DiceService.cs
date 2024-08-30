@@ -1,6 +1,5 @@
-﻿using d20Tek.DiceNotation.DieRoller;
-using d20Tek.DiceNotation;
-using System;
+﻿using d20Tek.DiceNotation;
+using d20Tek.DiceNotation.DieRoller;
 using d20Tek.DiceNotation.Results;
 namespace SOSCSRPG.Core
 {
