@@ -4,9 +4,6 @@ using SOSCSRPG.ViewModels;
 
 namespace WPFUI
 {
-    /// <summary>
-    /// Interaction logic for TradeScreen.xaml
-    /// </summary>
     public partial class TradeScreen : Window
     {
         public GameSession Session => DataContext as GameSession;
