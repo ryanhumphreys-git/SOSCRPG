@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using SOSCSRPG.Services.Factories;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using static System.Collections.Specialized.BitVector32;
 using System.Text.Json.Serialization;
-using System.Text.Json.Nodes;
-using System.Text.Json;
-using SOSCSRPG.Models.EventArgs;
 using SOSCSRPG.Core;
 using SOSCSRPG.Models;
 using SOSCSRPG.Services;
+using SOSCSRPG.Services.Factories;
 
 namespace SOSCSRPG.ViewModels
 {
-    public class GameSession : INotifyPropertyChanged
+    public class GameSession : INotifyPropertyChanged, IDisposable
     {
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
 
@@ -88,6 +79,13 @@ namespace SOSCSRPG.ViewModels
         [JsonIgnore]
         public Vendor CurrentVendor { get; private set; }
         [JsonIgnore]
+        public ObservableCollection<string> GameMessages { get; } = new ObservableCollection<string>();
+        public PopupDetails InventoryDetails { get; set; }
+        public PopupDetails QuestDetails { get; set; }
+        public PopupDetails RecipesDetails { get; set; }
+        public PopupDetails PlayerDetails { get; set; }
+        public PopupDetails GameMessagesDetails { get; set; }
+        [JsonIgnore]
         public QuestGiver CurrentQuestGiver { get; private set; }
         [JsonIgnore]
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
@@ -118,6 +116,63 @@ namespace SOSCSRPG.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentPlayer = player;
             CurrentLocation = CurrentWorld.LocationAt(xCoordinate, yCoordinate);
+
+            PlayerDetails = new PopupDetails
+            {
+                IsVisible = true,
+                Top = 10,
+                Left = 10,
+                MinHeight = 75,
+                MaxHeight = 400,
+                MinWidth = 265,
+                MaxWidth = 400
+            };
+
+            InventoryDetails = new PopupDetails
+            {
+                IsVisible = false,
+                Top = 500,
+                Left = 10,
+                MinHeight = 75,
+                MaxHeight = 175,
+                MinWidth = 250,
+                MaxWidth = 400
+            };
+
+            QuestDetails = new PopupDetails
+            {
+                IsVisible = false,
+                Top = 500,
+                Left = 275,
+                MinHeight = 75,
+                MaxHeight = 175,
+                MinWidth = 250,
+                MaxWidth = 400
+            };
+
+            RecipesDetails = new PopupDetails
+            {
+                IsVisible = false,
+                Top = 500,
+                Left = 575,
+                MinHeight = 75,
+                MaxHeight = 175,
+                MinWidth = 250,
+                MaxWidth = 400
+            };
+
+            GameMessagesDetails = new PopupDetails
+            {
+                IsVisible = true,
+                Top = 250,
+                Left = 10,
+                MinHeight = 75,
+                MaxHeight = 175,
+                MinWidth = 350,
+                MaxWidth = 500
+            };
+
+            _messageBroker.OnMessageRaised += OnGameMessageRaised;
         }
         #endregion
         #region Public Functions
@@ -157,6 +212,7 @@ namespace SOSCSRPG.ViewModels
         {
             GameDetails = GameDetailsService.ReadGameDetails();
         }
+        
         public void CompleteQuest(Quest currentQuest)
         {
             if(CurrentQuestGiver == null)
@@ -255,10 +311,6 @@ namespace SOSCSRPG.ViewModels
                 }
             }
         }
-        private void OnConsumableActionPerformed(object sender, string result)
-        {
-            _messageBroker.RaiseMessage(result);
-        }
         public void CraftItemUsing(Recipe recipe)
         {
             if(CurrentPlayer.Inventory.HasAllTheseItems(recipe.Ingredients))
@@ -284,8 +336,27 @@ namespace SOSCSRPG.ViewModels
                 }
             }
         }
+        public void Dispose()
+        {
+            _currentBattle?.Dispose();
+            _messageBroker.OnMessageRaised -= OnGameMessageRaised;
+        }
         #endregion
         #region Private Functions
+
+        private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
+        {
+            if (GameMessages.Count > 300)
+            {
+                GameMessages.RemoveAt(0);
+            }
+
+            GameMessages.Add(e.Message);
+        }
+        private void OnConsumableActionPerformed(object sender, string result)
+        {
+            _messageBroker.RaiseMessage(result);
+        }
         private void OnPlayerKilled(object sender, System.EventArgs eventArgs)
         {
             _messageBroker.RaiseMessage("");

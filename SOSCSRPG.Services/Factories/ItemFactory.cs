@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SOSCSRPG.Models.Actions;
-using System;
-using System.IO;
-using System.Xml;
-using System.ComponentModel;
-using SOSCSRPG.Models.Shared;
+﻿using System.Xml;
 using SOSCSRPG.Models;
+using SOSCSRPG.Models.Actions;
+using SOSCSRPG.Models.Shared;
 
 namespace SOSCSRPG.Services.Factories
 {

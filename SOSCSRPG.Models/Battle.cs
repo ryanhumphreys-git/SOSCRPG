@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SOSCSRPG.Core;
 using SOSCSRPG.Models.EventArgs;
-using SOSCSRPG.Core;
 using SOSCSRPG.Models.Shared;
 
 namespace SOSCSRPG.Models

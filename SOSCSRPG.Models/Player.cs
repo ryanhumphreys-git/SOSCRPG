@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Reflection;
+﻿using System.Collections.ObjectModel;
 
 namespace SOSCSRPG.Models
 {
