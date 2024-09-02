@@ -32,6 +32,10 @@ namespace SOSCSRPG.Models.Actions
             if(AttackSucceeded(actor, target))
             {
                 int damage = DiceService.Instance.Roll(_damageDice).Value;
+                if(actor.GetAttribute("STR") != null)
+                {
+                    damage = damage + StrengthDamageModifier(actor.GetAttribute("STR").ModifiedValue);
+                }
                 ReportResult($"{actorName} hit {target.Name} for {damage} damage"
                     + Environment.NewLine
                     + $"with {actor.CurrentWeapon.Name}."
@@ -52,6 +56,11 @@ namespace SOSCSRPG.Models.Actions
             decimal totalOffset = dexterityOffset + randomOffset;
 
             return DiceService.Instance.Roll(100).Value <= 50 + totalOffset;
+        }
+        private static int StrengthDamageModifier(int strength)
+        {
+            int damagerModifier = (int)((strength - 1) * 0.5 + 0.001 * (strength - 1) * (strength - 1) * (strength - 1) + 1);
+            return damagerModifier;
         }
     }
 }

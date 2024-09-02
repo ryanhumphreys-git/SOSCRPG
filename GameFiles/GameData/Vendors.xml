@@ -1,16 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Vendors RootImagePath="/Images/NPC's/">
-	<Vendor ID="1" ImageName="shadyMerchant">
+	<Vendor ID="1" ImageName="shadyMerchant.png">
 		<Name><![CDATA[Shady Merchant]]></Name>
 		<InventoryItems>
 			<Item ID="1001" Quantity="1"/>
+			<Item ID="1008" Quantity="1"/>
 		</InventoryItems>
 	</Vendor>
 
-	<Vendor ID="2" ImageName="birdHermit">
+	<Vendor ID="2" ImageName="birdHermit.png">
 		<Name><![CDATA[Bird Hermit]]></Name>
 		<InventoryItems>
 			<Item ID="1004" Quantity="1"/>
+		</InventoryItems>
+	</Vendor>
+
+	<Vendor ID="3" ImageName="rescuedCamped.png">
+		<Name><![CDATA[Rescued Camper]]></Name>
+		<InventoryItems>
+			<Item ID="3001" Quantity="10"/>
+			<Item ID="3002" Quantity="10"/>
+			<Item ID="3003" Quantity="10"/>
 		</InventoryItems>
 	</Vendor>
 </Vendors>

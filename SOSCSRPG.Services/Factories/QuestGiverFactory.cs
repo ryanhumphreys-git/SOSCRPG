@@ -27,15 +27,13 @@ namespace SOSCSRPG.Services.Factories
                     new QuestGiver(node.AttributeAsInt("ID"),
                                    node.SelectSingleNode("./Name")?.InnerText ?? "",
                                    $".{rootImagePath}{node.AttributeAsString("ImageName")}");
-                AddQuests(questGiver, node.SelectNodes("./Quests"));
-                //foreach (XmlNode childNode in node.SelectNodes("./QuestGiver/Quests"))
-                //{
-                //    questGiver.AddQuest(QuestFactory.GetQuestByID(childNode.AttributeAsInt("ID")));
-                //}
+                AddStartingQuests(questGiver, node.SelectNodes("./Quests/StartingQuest"));
+                AddUnlockableQuests(questGiver, node.SelectNodes("./Quests/UnlockableQuest"));
+
                 _questGivers.Add(questGiver);
             }
         }
-        private static void AddQuests(QuestGiver questGiver, XmlNodeList quest)
+        private static void AddStartingQuests(QuestGiver questGiver, XmlNodeList quest)
         {
             if (quest == null) { return; }
             foreach(XmlNode node in quest)
@@ -44,7 +42,15 @@ namespace SOSCSRPG.Services.Factories
                     Add(QuestFactory.GetQuestByID(node.AttributeAsInt("ID")));
             }
         }
-
+        private static void AddUnlockableQuests(QuestGiver questGiver, XmlNodeList quest)
+        {
+            if (quest == null) { return; }
+            foreach (XmlNode node in quest)
+            {
+                questGiver.QuestUnavailableHere.
+                    Add(QuestFactory.GetQuestByID(node.AttributeAsInt("ID")));
+            }
+        }
         public static QuestGiver GetQuestGiverByID(int id)
         {
             return _questGivers.FirstOrDefault(qg => qg.ID == id);

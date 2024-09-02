@@ -7,13 +7,13 @@
 	</Location>
 	<Location X="0" Y="0" Name="Town Square" ImageName="townSquare.png">
 		<Description>
-			<![CDATA[You see a fountain.]]>
+			<![CDATA[Many shops line the streets.]]>
 		</Description>
 		<Vendor ID="1"/>
 	</Location>
 	<Location X="0" Y="1" Name="Alchemist's Hut" ImageName="alchemistHut.png">
 		<Description>
-			<![CDATA[There are many strange plants on the shelves.]]>
+			<![CDATA[There are many strange concoctions around.]]>
 		</Description>
 		<QuestGiver ID="1"/>
 	</Location>
@@ -138,15 +138,111 @@
 			<![CDATA[A winding path on the mountain. You see a ravine at the end of the path.]]>
 		</Description>
 		<Monsters>
-			<Monster ID="12" Percent="33"/>
+			<Monster ID="15" Percent="33"/>
 		</Monsters>
 	</Location>
-	<Location X="3" Y="-4" Name="Den of the Alpha" ImageName="alphaDen.png">
+	<Location X="3" Y="-4" Name="Ravine" ImageName="ravine.png">
+		<Description>
+			<![CDATA[A large ravine at the bottem of the mountain.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="15" Percent="33"/>
+		</Monsters>
+	</Location>
+	<Location X="4" Y="-5" Name="Den of the Alpha" ImageName="alphaDen.png">
 		<Description>
 			<![CDATA[The den is dark and has no way to escape. You see two glowing red eyes staring at you from the darkness. Is this the end?]]>
 		</Description>
 		<Monsters>
 			<Monster ID="14" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="3" Y="-5" Name="Dark Path" ImageName="darkPath.png">
+		<Description>
+			<![CDATA[You see a dark path around the side of a large rock.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="12" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="4" Y="-4" Name="Dark Path" ImageName="darkPath.png">
+		<Description>
+			<![CDATA[You see a dark path around the side of a large rock.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="12" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="0" Y="-6" Name="Corrupted Forest" ImageName="corruptedForest.png">
+		<Description>
+			<![CDATA[You see the corruption growing stronger.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="8" Percent="33"/>
+			<Monster ID="9" Percent="33"/>
+			<Monster ID="10" Percent="33"/>
+		</Monsters>
+	</Location>
+	<Location X="0" Y="-7" Name="Source of Corruption" ImageName="sourceOfCorruption.png">
+		<Description>
+			<![CDATA[There is a large green demon standing over an infected pool. Animals drink from it and grow in size.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="16" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="-2" Y="-4" Name="Cave Entrance" ImageName="caveEntrance.png">
+		<Description>
+			<![CDATA[You see a cave entrance with Gnoll's patrolling.]]>
+		</Description>
+		<QuestGiver ID="6"/>
+	</Location>
+	<Location X="-3" Y="-4" Name="Dark Caverns" ImageName="darkCavern.png">
+		<Description>
+			<![CDATA[Further in the cave is spacious and has larger Gnolls.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="18" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="-4" Y="-4" Name="Gnoll Throne" ImageName="gnollThrone.png">
+		<Description>
+			<![CDATA[There is a throne made of wood with a large gnoll sitting atop.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="19" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="-2" Y="1" Name="Forest" ImageName="regularForest.png">
+		<Description>
+			<![CDATA[A peacefull forest with wolves lurking.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="21" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="-2" Y="-1" Name="Forest" ImageName="regularForest.png">
+		<Description>
+			<![CDATA[A peacefull forest with wolves lurking.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="21" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="-3" Y="0" Name="Forest" ImageName="regularForest.png">
+		<Description>
+			<![CDATA[A peacefull forest with wolves lurking.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="21" Percent="100"/>
+		</Monsters>
+	</Location>
+	<Location X="0" Y="3" Name="Overgrown Brush" ImageName="overgrownBrush.png">
+		<Description>
+			<![CDATA[You see many overgrown plants with large evil-looking rabbits.]]>
+		</Description>
+		<Monsters>
+			<Monster ID="20" Percent="100"/>
 		</Monsters>
 	</Location>
 </Locations>

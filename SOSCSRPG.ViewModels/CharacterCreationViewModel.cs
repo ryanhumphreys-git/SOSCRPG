@@ -51,7 +51,7 @@ namespace SOSCSRPG.ViewModels
         }
         public Player GetPlayer()
         {
-            Player player = new Player(Name, 0, 10, 10, PlayerAttributes, 10);
+            Player player = new Player(Name, 0, 100, 100, PlayerAttributes, 10);
             player.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             player.AddItemToInventory(ItemFactory.CreateGameItem(2001));
             player.LearnRecipe(RecipeFactory.RecipeByID(1));

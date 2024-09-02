@@ -8,9 +8,11 @@
 		<Weapon ID="1004" Name="Bird Talon Dagger" Price="20" DamageDice="2d3+4"/>
 		<Weapon ID="1005" Name="Sword of The Spider Queen" Price="30" DamageDice="3d4+8"/>
 		<Weapon ID="1006" Name="Claw of The First Wolf" Price="50" DamageDice="5d5+25"/>
+		<Weapon ID="1007" Name="Demon Lords Staff" Price="50" DamageDice="3d5+15"/>
+		<Weapon ID="1008" Name="Brother...You Beat the GAME" Price="5000" DamageDice="10d20+100"/>
 
 		<!-- Monster Weapons -->
-		<Weapon ID="1501" Name="Rat claws" Price="0" DamageDice="1d3"/>
+		<Weapon ID="1501" Name="Rat claws" Price="0" DamageDice="1d2"/>
 		<Weapon ID="1502" Name="Snake fangs" Price="0" DamageDice="1d3"/>
 		<Weapon ID="1503" Name="Giant rat claws" Price="0" DamageDice="1d3"/>
 		<Weapon ID="1504" Name="Giant snake fangs" Price="0" DamageDice="1d5"/>
@@ -22,13 +24,25 @@
 		<Weapon ID="1510" Name="Guarding Claw" Price="0" DamageDice="2d4+12"/>
 		<Weapon ID="1511" Name="Giga Spider Claw" Price="0" DamageDice="2d5+15"/>
 		<Weapon ID="1512" Name="Godlike Gaslight Alpha Attack" Price="0" DamageDice="3d5+25"/>
+		<Weapon ID="1513" Name="Rabbit Kick" Price="0" DamageDice="1d4+3"/>
+		<Weapon ID="1514" Name="Lurking Wolf Bite" Price="0" DamageDice="1d4+5"/>
+		<Weapon ID="1515" Name="Gnoll Punch" Price="0" DamageDice="1d4+8"/>
+		<Weapon ID="1516" Name="Gnoll Spin Kick" Price="0" DamageDice="1d6+8"/>
+		<Weapon ID="1517" Name="Gnoll Boss Stomp" Price="0" DamageDice="3d5+10"/>
+		<Weapon ID="1518" Name="Fel FireBall" Price="0" DamageDice="2d10+15"/>
+		<Weapon ID="1519" Name="Ravenous Wolf Swipe" Price="0" DamageDice="2d4+8"/>
 	</Weapons>
 	<HealingItems>
-		<HealingItem ID="2001" Name="Granola Bar" Price="5" HitPointsToHeal="5" />
+		<HealingItem ID="2001" Name="Healing Potion" Price="5" HitPointsToHeal="5" />
+		<HealingItem ID="2002" Name="Super Healing Potion" Price="15" HitPointsToHeal="15" />
+		<HealingItem ID="2003" Name="Mega Healing Potion" Price="30" HitPointsToHeal="30" />
+		<HealingItem ID="2004" Name="Delicious Food" Price ="20" HitPointsToHeal="20" />
 	</HealingItems>
 	<MiscellaneousItems>
 		<!-- Recipe Items -->
-		<MiscellaneousItem ID="3001" Name="Oats" Price="1"/>
+		<MiscellaneousItem ID="3001" Name="Weeds" Price="1"/>
+		<MiscellaneousItem ID="3002" Name="Bullwort" Price="5"/>
+		<MiscellaneousItem ID="3003" Name="Foxglove" Price="10"/>
 		
 		<!-- Other Items -->
 		<MiscellaneousItem ID="9001" Name="Snake fang" Price="1"/>
@@ -47,5 +61,13 @@
 		<MiscellaneousItem ID="9014" Name="Leftover water" Price="3"/>
 		<MiscellaneousItem ID="9015" Name="Dryad's blessing" Price="5"/>
 		<MiscellaneousItem ID="9016" Name="Feather" Price="5"/>
+		<MiscellaneousItem ID="9017" Name="Claw" Price="5"/>
+		<MiscellaneousItem ID="9018" Name="Headband" Price="5"/>
+		<MiscellaneousItem ID="9019" Name="Old boots" Price="5"/>
+		<MiscellaneousItem ID="9020" Name="Rusty lantern" Price="10"/>
+		<MiscellaneousItem ID="9021" Name="Gnoll Boss Head" Price="5"/>
+		<MiscellaneousItem ID="9022" Name="Demon Heart" Price="5"/>
+		<MiscellaneousItem ID="9023" Name="Monster rabbit foot" Price="5"/>
+		<MiscellaneousItem ID="9024" Name="Revenous claw" Price="5"/>
 	</MiscellaneousItems>
 </GameItems>

@@ -5,6 +5,7 @@ using SOSCSRPG.Core;
 using SOSCSRPG.Models;
 using SOSCSRPG.Services;
 using SOSCSRPG.Services.Factories;
+using System.Linq;
 
 namespace SOSCSRPG.ViewModels
 {
@@ -57,10 +58,10 @@ namespace SOSCSRPG.ViewModels
         [JsonIgnore]
         public Monster CurrentMonster
         {
-            get => _currentMonster; 
+            get => _currentMonster;
             set
             {
-                if(_currentBattle != null)
+                if (_currentBattle != null)
                 {
                     _currentBattle.OnCombatVictory -= OnCurrentMonsterKilled;
                     _currentBattle.Dispose();
@@ -69,7 +70,7 @@ namespace SOSCSRPG.ViewModels
 
                 _currentMonster = value;
 
-                if(_currentMonster != null)
+                if (_currentMonster != null)
                 {
                     _currentBattle = new Battle(CurrentPlayer, CurrentMonster);
                     _currentBattle.OnCombatVictory += OnCurrentMonsterKilled;
@@ -85,6 +86,9 @@ namespace SOSCSRPG.ViewModels
         public PopupDetails RecipesDetails { get; set; }
         public PopupDetails PlayerDetails { get; set; }
         public PopupDetails GameMessagesDetails { get; set; }
+        [JsonIgnore]
+        public ObservableCollection<string> QuestNamesInList => 
+            new ObservableCollection<string>(CurrentLocation.QuestGiverHere.QuestAvailableHere.Select(obj => obj.Name).ToList());
         [JsonIgnore]
         public QuestGiver CurrentQuestGiver { get; private set; }
         [JsonIgnore]
@@ -103,10 +107,6 @@ namespace SOSCSRPG.ViewModels
         public bool HasVendor => CurrentVendor != null;
         [JsonIgnore]
         public bool HasQuestGiver => CurrentQuestGiver != null;
-        [JsonIgnore]
-        public bool HasTwoQuests => (CurrentLocation.QuestGiverHere?.QuestAvailableHere.Count > 1);
-        [JsonIgnore]
-        public Quest SelectedQuest { get; set; }
         #endregion
         #region Constructor
         public GameSession(Player player, int xCoordinate, int yCoordinate)
@@ -122,10 +122,10 @@ namespace SOSCSRPG.ViewModels
                 IsVisible = true,
                 Top = 10,
                 Left = 10,
-                MinHeight = 75,
+                MinHeight = 400,
                 MaxHeight = 400,
-                MinWidth = 265,
-                MaxWidth = 400
+                MinWidth = 200,
+                MaxWidth = 200
             };
 
             InventoryDetails = new PopupDetails
@@ -133,10 +133,10 @@ namespace SOSCSRPG.ViewModels
                 IsVisible = false,
                 Top = 500,
                 Left = 10,
-                MinHeight = 75,
-                MaxHeight = 175,
+                MinHeight = 200,
+                MaxHeight = 200,
                 MinWidth = 250,
-                MaxWidth = 400
+                MaxWidth = 250
             };
 
             QuestDetails = new PopupDetails
@@ -144,10 +144,10 @@ namespace SOSCSRPG.ViewModels
                 IsVisible = false,
                 Top = 500,
                 Left = 275,
-                MinHeight = 75,
+                MinHeight = 175,
                 MaxHeight = 175,
                 MinWidth = 250,
-                MaxWidth = 400
+                MaxWidth = 250
             };
 
             RecipesDetails = new PopupDetails
@@ -155,10 +155,10 @@ namespace SOSCSRPG.ViewModels
                 IsVisible = false,
                 Top = 500,
                 Left = 575,
-                MinHeight = 75,
+                MinHeight = 175,
                 MaxHeight = 175,
                 MinWidth = 250,
-                MaxWidth = 400
+                MaxWidth = 250
             };
 
             GameMessagesDetails = new PopupDetails
@@ -166,10 +166,10 @@ namespace SOSCSRPG.ViewModels
                 IsVisible = true,
                 Top = 250,
                 Left = 10,
-                MinHeight = 75,
+                MinHeight = 175,
                 MaxHeight = 175,
-                MinWidth = 350,
-                MaxWidth = 500
+                MinWidth = 375,
+                MaxWidth = 375
             };
 
             _messageBroker.OnMessageRaised += OnGameMessageRaised;
@@ -212,16 +212,13 @@ namespace SOSCSRPG.ViewModels
         {
             GameDetails = GameDetailsService.ReadGameDetails();
         }
-        
         public void CompleteQuest(Quest currentQuest)
         {
             if(CurrentQuestGiver == null)
             {
                 return;
-
             }
-            QuestStatus questToComplete =
-                CurrentPlayer.Quests.FirstOrDefault(q => q.PlayerQuest.ID == currentQuest.ID && !q.IsCompleted);
+            QuestStatus questToComplete = CurrentPlayer.Quests.FirstOrDefault(q => q.PlayerQuest.ID == currentQuest.ID && !q.IsCompleted);
 
             if(questToComplete != null)
             {
@@ -247,6 +244,13 @@ namespace SOSCSRPG.ViewModels
                         
                     questToComplete.IsCompleted = true;
                 }
+                else
+                {
+                    _messageBroker.RaiseMessage($"You must return with {currentQuest.ItemsToComplete.ToString()} to complete the quest.");
+                }
+                CurrentQuestGiver.QuestAvailableHere.Remove(currentQuest);
+                UnlockQuests(CurrentQuestGiver);
+                
             }
         }
         public void AcceptQuest(Quest currentQuest)
@@ -280,11 +284,19 @@ namespace SOSCSRPG.ViewModels
             }
             else
             {
-
                 _messageBroker.RaiseMessage("");
                 _messageBroker.RaiseMessage($"Would you like to complete {selectedQuest.Name}?");
-                _messageBroker.RaiseMessage($"You must {selectedQuest.Description}");
+                _messageBroker.RaiseMessage($"You must {selectedQuest.Description.ToLower()}.");
             }
+        }
+        public void UnlockQuests(QuestGiver questGiver)
+        {
+            if (questGiver == null) return;
+            if(CurrentQuestGiver.QuestAvailableHere.Count ==  0)
+            {
+                CurrentQuestGiver.QuestAvailableHere = CurrentQuestGiver.QuestUnavailableHere;
+            }
+
         }
         public void AllQuestsAtQuestGiverAreCompleted(string questGiver)
         {
@@ -343,7 +355,6 @@ namespace SOSCSRPG.ViewModels
         }
         #endregion
         #region Private Functions
-
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
         {
             if (GameMessages.Count > 300)
