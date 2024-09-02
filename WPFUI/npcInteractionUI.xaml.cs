@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.Configuration;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using SOSCSRPG.Core;
+using SOSCSRPG.Models;
 using SOSCSRPG.ViewModels;
 
 namespace WPFUI
@@ -16,44 +18,13 @@ namespace WPFUI
 
             btnAccept.Visibility = Visibility.Hidden;
             btnComplete.Visibility = Visibility.Hidden;
+            lbQuestList.Visibility = Visibility.Visible;
                        
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _messageBroker.OnMessageRaised += OnGameMessageRaised;
 
-            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].ID) != null)
-            {
-                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0].ID).IsCompleted)
-                {
-                    btnQuestOne.Visibility = Visibility.Hidden;
-                }
-            }
-            if (Session.CurrentLocation.QuestGiverHere.QuestAvailableHere.Count > 1)
-            {
-                if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1].ID) != null)
-                {
-                    if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1].ID).IsCompleted)
-                    {
-                        btnQuestOne.Visibility = Visibility.Hidden;
-                    }
-                }
-            }
-            if (Session.CurrentLocation.QuestGiverHere.QuestAvailableHere.Count > 1)
-            {
-                if (btnQuestOne.Visibility == Visibility.Hidden && btnQuestTwo.Visibility == Visibility.Hidden)
-                {
-                    Session.AllQuestsAtQuestGiverAreCompleted(Session.CurrentLocation.QuestGiverHere.Name);
-                }
-            }
-            else
-            {
-                if (btnQuestOne.Visibility == Visibility.Hidden)
-                {
-                    Session.AllQuestsAtQuestGiverAreCompleted(Session.CurrentLocation.QuestGiverHere.Name);
-                }
-            }
-               
         }
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
         {
@@ -62,66 +33,40 @@ namespace WPFUI
         }
         private void OnClick_AcceptQuest(object sender, RoutedEventArgs e)
         {
-            if(Session.SelectedQuest == null) return;
-            Session.AcceptQuest(Session.SelectedQuest);
-            Session.SelectedQuest = null;
+            if(lbQuestList.SelectedItem == null) return;
+            Session.AcceptQuest(lbQuestList.SelectedItem as Quest);
             btnAccept.Visibility = Visibility.Hidden;
         }
         private void OnClick_CompleteQuest(object sender, RoutedEventArgs e)
         {
-            if (!Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete)) return;
-            Session.CompleteQuest(Session.SelectedQuest);
-            Session.SelectedQuest = null;
+            Quest selectedQuest = lbQuestList.SelectedItem as Quest;
+            if(!Session.CurrentPlayer.Inventory.HasAllTheseItems(selectedQuest.ItemsToComplete)) return;
+            Session.CompleteQuest(lbQuestList.SelectedItem as Quest);
             btnComplete.Visibility= Visibility.Hidden;
         }
         private void OnClick_Cancel(object sender, RoutedEventArgs e)
         {
             Close();
         }
-        private void OnClick_ChooseQuestOne(object sender, RoutedEventArgs e)
+        private void lbQuestList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            Session.SelectedQuest = Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[0];
-
-            Button button = sender as Button;
-
-            Session.SelectQuest(Session.SelectedQuest);
-
-            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) == null)
+            if(lbQuestList.SelectedItem != null)
             {
-                btnAccept.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                if (Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
+                Quest selectedQuest = lbQuestList.SelectedItem as Quest;
+                Session.SelectQuest(selectedQuest);
+                // If has the quest show complete button
+                if(Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == selectedQuest.ID) != null)
                 {
                     btnComplete.Visibility = Visibility.Visible;
                 }
-            }
-
-            button.Visibility = Visibility.Hidden;
-        }
-        private void OnClick_ChooseQuestTwo(object sender, RoutedEventArgs e)
-        {
-            Session.SelectedQuest = Session.CurrentLocation.QuestGiverHere.QuestAvailableHere[1];
-
-            Button button = sender as Button;
-
-            Session.SelectQuest(Session.SelectedQuest);
-
-            if (Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == Session.SelectedQuest.ID) == null)
-            {
-                btnAccept.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                if (Session.CurrentPlayer.Inventory.HasAllTheseItems(Session.SelectedQuest.ItemsToComplete))
+                // If doesnt have quest show accept button
+                if(Session.CurrentPlayer.Quests.FirstOrDefault(pq => pq.PlayerQuest.ID == selectedQuest.ID) == null)
                 {
-                    btnComplete.Visibility = Visibility.Visible;
+                    btnAccept.Visibility = Visibility.Visible;
                 }
+                // Hide the list box
+                lbQuestList.Visibility = Visibility.Hidden;
             }
-
-            button.Visibility = Visibility.Hidden;
         }
     }
 }

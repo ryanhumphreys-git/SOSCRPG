@@ -85,7 +85,7 @@
 			<LootItem ID="9016" Percentage="50"/>
 		</LootItems>
 	</Monster>
-	<Monster ID="13" Name="Spider Queen" MaximumHitPoints="120" WeaponID="1511" RewardXP="150" Gold="30" ImageName="spiderQueen.png">
+	<Monster ID="13" Name="Spider Queen" MaximumHitPoints="120" WeaponID="1511" RewardXP="100" Gold="30" ImageName="spiderQueen.png">
 		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9009" Percentage="100"/>
@@ -95,6 +95,53 @@
 		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9008" Percentage="100"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="15" Name="Ravenous Wolf" MaximumHitPoints="50" WeaponID="1519" RewardXP="35" Gold="10" ImageName="ravenousWolf.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9024" Percentage="100"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="16" Name="Fel Demon" MaximumHitPoints="150" WeaponID="1518" RewardXP="150" Gold="40" ImageName="felDemon.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9022" Percentage="100"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="17" Name="Small Gnoll" MaximumHitPoints="30" WeaponID="1515" RewardXP="20" Gold="5" ImageName="smallGnoll.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9018" Percentage="40"/>
+			<LootItem ID="9019" Percentage="30"/>
+			<LootItem ID="9020" Percentage="30"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="18" Name="Large Gnoll" MaximumHitPoints="40" WeaponID="1516" RewardXP="25" Gold="5" ImageName="largeGnoll.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9018" Percentage="30"/>
+			<LootItem ID="9019" Percentage="30"/>
+			<LootItem ID="9020" Percentage="40"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="19" Name="Gnoll Boss" MaximumHitPoints="100" WeaponID="1517" RewardXP="50" Gold="15" ImageName="gnollBoss.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9021" Percentage="100"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="20" Name="Monster Rabbit" MaximumHitPoints="15" WeaponID="1513" RewardXP="10" Gold="3" ImageName="monsterRabbit.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9023" Percentage="100"/>
+			<LootItem ID="3002" Percentage="75"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="21" Name="Lurking Wolf" MaximumHitPoints="20" WeaponID="1514" RewardXP="10" Gold="3" ImageName="lurkingWolf.png">
+		<Dexterity>10</Dexterity>
+		<LootItems>
+			<LootItem ID="9017" Percentage="100"/>
 		</LootItems>
 	</Monster>
 </Monsters>

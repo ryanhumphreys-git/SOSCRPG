@@ -44,5 +44,9 @@ namespace SOSCSRPG.Models.Shared
         {
             return inventory.Where(i => i.Category == category).ToList();
         }
+        //public static string QuestNameOf(this Quest quest)
+        //{
+
+        //}
     }
 }

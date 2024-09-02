@@ -22,6 +22,7 @@ namespace SOSCSRPG.Models
         }
         #endregion
         #region Collections
+        public List<Quest> CompletedQuests { get; set; } = new List<Quest>();
         public ObservableCollection<QuestStatus> Quests { get; } = new ObservableCollection<QuestStatus>();
         public ObservableCollection<Recipe>  Recipes { get; } = new ObservableCollection<Recipe>();
         #endregion

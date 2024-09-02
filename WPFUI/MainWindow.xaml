@@ -78,13 +78,14 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0"
                                HorizontalAlignment="Left"
                                FontWeight="Bold"
-                               Content="Player Details"/>
+                               Content="Player Details"
+                               Grid.ColumnSpan="2"/>
                         <Button Grid.Row="0" Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Width="25"
@@ -134,33 +135,33 @@
                                    FontWeight="Bold"
                                    Content="{Binding CurrentPlayer.Name}"/>
                         </Canvas>
-                        <Grid Grid.Row="3" Grid.Column="0"
+                        <Grid Grid.Row="2" Grid.Column="1"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Top"
                               Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0"
                                    FontWeight="Bold"
                                    Content="Exp:"/>
-                            <Label Grid.Row="0" Grid.Column="1"
-                                   Content="{Binding CurrentPlayer.ExperiencePoints}"/>
                             <Label Grid.Row="1" Grid.Column="0"
+                                   Content="{Binding CurrentPlayer.ExperiencePoints}"/>
+                            <Label Grid.Row="0" Grid.Column="1"
                                    FontWeight="Bold"
                                    Content="Gold:"/>
                             <Label Grid.Row="1" Grid.Column="1"
                                    Content="{Binding CurrentPlayer.Gold}"/>
-                            <Label Grid.Row="2" Grid.Column="0"
+                            <Label Grid.Row="0" Grid.Column="2"
                                    FontWeight="Bold"
                                    Content="HP:"/>
-                            <Label Grid.Row="2" Grid.Column="1"
+                            <Label Grid.Row="1" Grid.Column="2"
                                    Content="{Binding CurrentPlayer.HitPoints}"/>
                         </Grid>
                         <!-- Player Attributes -->
@@ -504,8 +505,39 @@
                     </StackPanel>
                 </Grid>
             </Border>
-        </Grid>
+        
+        <!-- QuestGiver Information -->
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center"
+                               Height="Auto" Text="{Binding CurrentQuestGiver.Name}"/>
+
+                    <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Height="320" Width="300" Source="{Binding CurrentQuestGiver.ImageName, Converter={StaticResource FileToBitmapConverter}}"/>
+                </Grid>
+            </Border>
+
+            <!-- Vendor Information -->
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center"
+                               Height="Auto" Text="{Binding CurrentVendor.Name}"/>
+
+                    <Image Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Height="320" Width="300" Source="{Binding CurrentVendor.ImageName, Converter={StaticResource FileToBitmapConverter}}"/>
+                </Grid>
+            </Border>
+        </Grid>
         <!-- Action Controls -->
         <Grid Grid.Row="2" Grid.Column="0" Background="LightCoral" Grid.ColumnSpan="2" Panel.ZIndex="1">
             <Grid.RowDefinitions>

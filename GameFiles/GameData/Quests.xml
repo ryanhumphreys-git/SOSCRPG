@@ -57,7 +57,7 @@
 			<![CDATA[The alpha wolf is a threat to my flock. He preys on them when they land to feed and has caused massive damage to us. Please adventurer, defeat the alpha wolf and bring peace to our land. I will reward you with a weapon fashioned from his gigantic fang.]]>
 		</Description>
 		<ItemsToComplete>
-			<Item ID="9009" Quantity="1"/>
+			<Item ID="9008" Quantity="1"/>
 		</ItemsToComplete>
 		<RewardItems>
 			<Item ID="1006" Quantity="1"/>
@@ -73,6 +73,83 @@
 		</ItemsToComplete>
 		<RewardItems>
 			<Item ID="1003" Quantity="1"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="9" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Rescue the lost campers.]]></Name>
+		<Description>
+			<![CDATA[Please...help! You must rescue the other campers. They have been captured by the Gnoll Boss...I don't know how much longer they have left.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9021" Quantity="1"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="3003" Quantity="6"/>
+			<Item ID="2003" Quantity="3"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="10" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Quell the Monster Rabbits]]></Name>
+		<Description>
+			<![CDATA[You must stop the monster rabbits! They are encroaching on my garden from the overgrown brush just past the garden wall.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9023" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="3001" Quantity="6"/>
+			<Item ID="2001" Quantity="3"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="11" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Cut off the Source]]></Name>
+		<Description>
+			<![CDATA[The corruption eminates from a demon just south in the heart of the corrupted forest. End this beast so that the wildlife may return to their natural state.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9022" Quantity="1"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="1007" Quantity="1"/>
+			<Item ID="2002" Quantity="3"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="12" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Securing the Flock]]></Name>
+		<Description>
+			<![CDATA[My flock is in danger! There are worlves lurking in the forest surrounding the field. Please help and kill some of the predators.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9017" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="2004" Quantity="3"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="13" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Thinning the Pack]]></Name>
+		<Description>
+			<![CDATA[There are many wolves in the ravine that decimate my flock. Please thin their numbers. If you complete this you may be up for the ultimate challenge to help us survive.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9024" Quantity="5"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="2003" Quantity="2"/>
+		</RewardItems>
+	</Quest>
+	<Quest ID="14" RewardExperiencePoints="30" RewardGold="20">
+		<Name><![CDATA[Thinning the Pack]]></Name>
+		<Description>
+			<![CDATA[Help! The Gnolls have captured me. Please bring me their gear to show you have killed them.]]>
+		</Description>
+		<ItemsToComplete>
+			<Item ID="9018" Quantity="1"/>
+			<Item ID="9019" Quantity="1"/>
+			<Item ID="9020" Quantity="1"/>
+		</ItemsToComplete>
+		<RewardItems>
+			<Item ID="3003" Quantity="4"/>
 		</RewardItems>
 	</Quest>
 </Quests>
